@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\UserResource\Pages;
-use App\Filament\Resources\UserResource\RelationManagers;
-use App\Models\User;
+use App\Filament\Resources\ErpProductUsageLogResource\Pages;
+use App\Filament\Resources\ErpProductUsageLogResource\RelationManagers;
+use App\Models\ErpProductUsageLog;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -13,9 +13,9 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class UserResource extends Resource
+class ErpProductUsageLogResource extends Resource
 {
-    protected static ?string $model = User::class;
+    protected static ?string $model = ErpProductUsageLog::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
@@ -24,7 +24,12 @@ class UserResource extends Resource
     {
         return $form
             ->schema([
-
+                Forms\Components\Select::make('updated_by')
+                    ->relationship('updatedBy', 'id'),
+                Forms\Components\TextInput::make('product_used_on'),
+                Forms\Components\TextInput::make('adjustment'),
+                Forms\Components\Select::make('product_id')
+                    ->relationship('product', 'id')
             ]);
     }
 
@@ -32,7 +37,10 @@ class UserResource extends Resource
     {
         return $table
             ->columns([
-
+                Tables\Columns\TextColumn::make('user_updated.id'),
+                Tables\Columns\TextColumn::make('product_used_on'),
+                Tables\Columns\TextColumn::make('adjustment'),
+                Tables\Columns\TextColumn::make('products.id')
             ])
             ->filters([
                 Tables\Filters\TrashedFilter::make(),
@@ -59,9 +67,9 @@ class UserResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListUsers::route('/'),
-            'create' => Pages\CreateUser::route('/create'),
-            'edit' => Pages\EditUser::route('/{record}/edit'),
+            'index' => Pages\ListErpProductUsageLogs::route('/'),
+            'create' => Pages\CreateErpProductUsageLog::route('/create'),
+            'edit' => Pages\EditErpProductUsageLog::route('/{record}/edit'),
         ];
     }
 

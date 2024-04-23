@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\UserResource\Pages;
-use App\Filament\Resources\UserResource\RelationManagers;
-use App\Models\User;
+use App\Filament\Resources\ErpProductTypeResource\Pages;
+use App\Filament\Resources\ErpProductTypeResource\RelationManagers;
+use App\Models\ErpProductType;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -13,9 +13,9 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class UserResource extends Resource
+class ErpProductTypeResource extends Resource
 {
-    protected static ?string $model = User::class;
+    protected static ?string $model = ErpProductType::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
@@ -24,7 +24,11 @@ class UserResource extends Resource
     {
         return $form
             ->schema([
-
+                Forms\Components\Select::make('updated_by')
+                    ->relationship('updatedBy', 'id'),
+                Forms\Components\Select::make('parent_id')
+                    ->relationship('parent', 'id'),
+                Forms\Components\TextInput::make('product_type')
             ]);
     }
 
@@ -32,7 +36,9 @@ class UserResource extends Resource
     {
         return $table
             ->columns([
-
+                Tables\Columns\TextColumn::make('user_updated.id'),
+                Tables\Columns\TextColumn::make('category.id'),
+                Tables\Columns\TextColumn::make('product_type')
             ])
             ->filters([
                 Tables\Filters\TrashedFilter::make(),
@@ -59,9 +65,9 @@ class UserResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListUsers::route('/'),
-            'create' => Pages\CreateUser::route('/create'),
-            'edit' => Pages\EditUser::route('/{record}/edit'),
+            'index' => Pages\ListErpProductTypes::route('/'),
+            'create' => Pages\CreateErpProductType::route('/create'),
+            'edit' => Pages\EditErpProductType::route('/{record}/edit'),
         ];
     }
 

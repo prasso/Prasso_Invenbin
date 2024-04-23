@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Filament\Resources\UserResource\Pages;
+namespace App\Filament\Resources\ErpBillOfMaterialResource\Pages;
 
-use App\Filament\Resources\UserResource;
+use App\Filament\Resources\ErpBillOfMaterialResource;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
 
-class EditUser extends EditRecord
+class EditErpBillOfMaterial extends EditRecord
 {
-    protected static string $resource = UserResource::class;
+    protected static string $resource = ErpBillOfMaterialResource::class;
 
     protected function getHeaderActions(): array
     {
