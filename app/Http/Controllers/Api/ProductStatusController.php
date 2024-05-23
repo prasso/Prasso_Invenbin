@@ -17,7 +17,7 @@ class ProductStatusController extends Controller
      *
      * @return \Illuminate\Http\Response
      * @OA\Get(
-     *     path="/product-statuses", 
+     *     path="/api/product-statuses", 
      *     tags={"ProductStatuses"}, 
      *     summary="Get all statuses that apply to products", 
      *     description="Retrieve a list of product status records",
@@ -49,7 +49,7 @@ class ProductStatusController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      * @OA\Post(
-     *     path="/product-statuses", 
+     *     path="/api/product-statuses", 
      *     tags={"ProductStatuses"}, 
      *     summary="Create a new product status", 
      *     description="Create a new product status",
@@ -84,9 +84,10 @@ class ProductStatusController extends Controller
      * @return \Illuminate\Http\Response
      *
      * @OA\Get(
-     *     path="/product-statuses/{id}", 
+     *     path="/api/product-statuses/{id}", 
      *     tags={"ProductStatuses"}, 
      *     summary="Get a specific product status", 
+     *     security={{"bearer_token":{}}},
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
@@ -126,7 +127,7 @@ class ProductStatusController extends Controller
      * @param  string $id
      * @return \Illuminate\Http\Response
      * @OA\Put(
-    *     path="/product-statuses/{id}", 
+    *     path="/api/product-statuses/{id}", 
     *     tags={"ProductStatuses"}, 
     *     summary="Update a product status", 
     *     description="Update a product status",
@@ -189,9 +190,10 @@ class ProductStatusController extends Controller
      * @param  string $id
      * @return \Illuminate\Http\Response
      * @OA\Delete(
-     *     path="/product-statuses/{id}", 
+     *     path="/api/product-statuses/{id}", 
      *     tags={"ProductStatuses"}, 
      *     summary="Delete a product status", 
+     *     security={{"bearer_token":{}}},
      *     @OA\Parameter(
      *         name="id",
      *         in="path",

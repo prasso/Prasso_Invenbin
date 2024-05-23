@@ -17,7 +17,7 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      * @OA\Get(
-     *     path="/products",
+     *     path="/api/products",
      *     tags={"Products"},
      *     summary="Get all products",     
      *     description="Retrieve a list of product records with eager loading of products relationship",
@@ -50,7 +50,7 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
     * @OA\Post(
-    *     path="/products",
+    *     path="/api/products",
     *     tags={"Products"},
     *     summary="Create a new product",
     *     description="Create a new product",
@@ -106,9 +106,10 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      * 
      * @OA\Get(
-     *     path="/products/{guid}",
+     *     path="/api/products/{guid}",
      *     tags={"Products"},
      *     summary="Get a specific product",
+     *     security={{"bearer_token":{}}},
      *     @OA\Parameter(
      *         name="guid",
      *         in="path",
@@ -149,7 +150,7 @@ class ProductController extends Controller
      * @param  string $guid
      * @return \Illuminate\Http\Response
      * @OA\Put(
-    *     path="/products/{guid}",
+    *     path="/api/products/{guid}",
     *     tags={"Products"},
     *     summary="Update a product",
     *     description="Update a product",
@@ -211,9 +212,10 @@ class ProductController extends Controller
      * @param  string $guid
      * @return \Illuminate\Http\Response
      * @OA\Delete(
-     *     path="/products/{guid}",
+     *     path="/api/products/{guid}",
      *     tags={"Products"},
      *     summary="Delete a product",
+     *     security={{"bearer_token":{}}},
      *     @OA\Parameter(
      *         name="id",
      *         in="path",

@@ -16,7 +16,7 @@ class BillOfMaterialsController extends Controller
      *
      * @return \Illuminate\Http\Response
      * @OA\Get(
-     *     path="/bom", 
+     *     path="/api/bom", 
      *     tags={"BillOfMaterials"}, 
      *     summary="Get all bills of material", 
      *     description="Retrieve a list of bills of material records with eager loading of products relationship",
@@ -49,7 +49,7 @@ class BillOfMaterialsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
     * @OA\Post(
-    *     path="/bom", 
+    *     path="/api/bom", 
     *     tags={"BillOfMaterials"}, 
     *     summary="Create a new bill of material", 
     *     description="Create a new bill of material",
@@ -88,9 +88,10 @@ class BillOfMaterialsController extends Controller
      * @param  string $guid
      * @return \Illuminate\Http\Response
      * @OA\Get(
-     *     path="/bom/{guid}", 
+     *     path="/api/bom/{guid}", 
      *     tags={"BillOfMaterials"}, 
-     *     summary="Get a specific bill of material", 
+     *     summary="Get a specific bill of material", ,
+     *     security={{"bearer_token":{}}},
      *     @OA\Parameter(
      *         name="guid",
      *         in="path",
@@ -132,7 +133,7 @@ class BillOfMaterialsController extends Controller
      * @param  string $guid
      * @return \Illuminate\Http\Response
      * @OA\Put(
-    *     path="/bom/{guid}", 
+    *     path="/api/bom/{guid}", 
     *     tags={"BillOfMaterials"}, 
     *     summary="Update a bill of material", 
     *     description="Update a bill of material",
@@ -194,9 +195,10 @@ class BillOfMaterialsController extends Controller
      * @param  string $guid
      * @return \Illuminate\Http\Response
      * @OA\Delete(
-     *     path="/bom/{guid}", 
+     *     path="/api/bom/{guid}", 
      *     tags={"BillOfMaterials"}, 
-     *     summary="Delete a bill of material", 
+     *     summary="Delete a bill of material",,
+     *     security={{"bearer_token":{}}}, 
      *     @OA\Parameter(
      *         name="id",
      *         in="path",

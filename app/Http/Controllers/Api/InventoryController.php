@@ -14,7 +14,8 @@ class InventoryController extends Controller
      *      path="/api/inventory",
      *      operationId="getInventory",
      *      tags={"Inventory"},
-     *      summary="Get inventory levels for all products",
+     *      summary="Get inventory levels for all products",,
+     *     security={{"bearer_token":{}}},
      *      description="Returns a list of all products along with their inventory levels.",
      *      @OA\Response(
      *          response=200,
@@ -53,7 +54,8 @@ class InventoryController extends Controller
      *     path="/api/inventory/{id}",
      *     summary="Display the inventory level for a specific product.",
      *     description="Returns the inventory level for a product identified by its ID.",
-     *     tags={"Inventory"},
+     *     tags={"Inventory"},,
+     *     security={{"bearer_token":{}}},
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
@@ -112,7 +114,8 @@ class InventoryController extends Controller
      *     path="/api/inventory/{id}",
      *     summary="Update the inventory level for a specific product.",
      *     description="Adjusts the inventory level based on the incoming adjustment value and returns the updated product details.",
-     *     tags={"Inventory"},
+     *     tags={"Inventory"},,
+     *     security={{"bearer_token":{}}},
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
@@ -232,7 +235,8 @@ class InventoryController extends Controller
      *      path="/api/products/{id}/reorder-point",
      *      operationId="setReorderPoint",
      *      tags={"Products"},
-     *      summary="Set reorder point for a product",
+     *      summary="Set reorder point for a product",,
+     *     security={{"bearer_token":{}}},
      *      description="Set the reorder point for a specific product and trigger notifications if necessary.",
      *      @OA\Parameter(
      *          name="id",

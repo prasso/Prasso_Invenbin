@@ -16,7 +16,7 @@ class ProductTypeController extends Controller
      *
      * @return \Illuminate\Http\Response
      * @OA\Get(
-     *     path="/product-types", 
+     *     path="/api/product-types", 
      *     tags={"ProductTypes"}, 
      *     summary="Get all product types", 
      *     description="Retrieve a list of product types records with eager loading of products relationship",
@@ -48,7 +48,7 @@ class ProductTypeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
     * @OA\Post(
-    *     path="/product-types", 
+    *     path="/api/product-types", 
     *     tags={"ProductTypes"}, 
     *     summary="Create a new product type", 
     *     description="Create a new product type",
@@ -86,9 +86,10 @@ class ProductTypeController extends Controller
      * @param  string $id
      * @return \Illuminate\Http\Response
      * @OA\Get(
-     *     path="/product-types/{id}", 
+     *     path="/api/product-types/{id}", 
      *     tags={"ProductTypes"}, 
      *     summary="Get a specific product type", 
+     *     security={{"bearer_token":{}}},
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
@@ -130,7 +131,7 @@ class ProductTypeController extends Controller
      * @param  string $id
      * @return \Illuminate\Http\Response
      * @OA\Put(
-    *     path="/product-types/{id}", 
+    *     path="/api/product-types/{id}", 
     *     tags={"ProductTypes"}, 
     *     summary="Update a product type", 
     *     description="Update a product type",
@@ -192,9 +193,10 @@ class ProductTypeController extends Controller
      * @param  string $id
      * @return \Illuminate\Http\Response
      * @OA\Delete(
-     *     path="/product-types/{id}", 
+     *     path="/api/product-types/{id}", 
      *     tags={"ProductTypes"}, 
      *     summary="Delete a product type", 
+     *     security={{"bearer_token":{}}},
      *     @OA\Parameter(
      *         name="id",
      *         in="path",

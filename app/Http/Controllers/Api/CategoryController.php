@@ -34,7 +34,7 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      * @OA\Get(
-     *     path="/categories",
+     *     path="/api/categories",
      *     tags={"Categories"},
      *     summary="Get all categories",     
      *     description="Retrieve a list of categories records with eager loading of products relationship",
@@ -66,7 +66,7 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
     * @OA\Post(
-    *     path="/categories",
+    *     path="/api/categories",
     *     tags={"Categories"},
     *     summary="Create a new category",
     *     description="Create a new category",
@@ -104,9 +104,10 @@ class CategoryController extends Controller
      * @param  string $id
      * @return \Illuminate\Http\Response
      * @OA\Get(
-     *     path="/categories/{id}",
+     *     path="/api/categories/{id}",
      *     tags={"Categories"},
-     *     summary="Get a specific category",
+     *     summary="Get a specific category",,
+     *     security={{"bearer_token":{}}},
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
@@ -148,7 +149,7 @@ class CategoryController extends Controller
      * @param  string $id
      * @return \Illuminate\Http\Response
      * @OA\Put(
-    *     path="/categories/{id}",
+    *     path="/api/categories/{id}",
     *     tags={"Categories"},
     *     summary="Update a category",
     *     description="Update a category",
@@ -210,9 +211,10 @@ class CategoryController extends Controller
      * @param  string $id
      * @return \Illuminate\Http\Response
      * @OA\Delete(
-     *     path="/categories/{id}",
+     *     path="/api/categories/{id}",
      *     tags={"Categories"},
-     *     summary="Delete a category",
+     *     summary="Delete a category",,
+     *     security={{"bearer_token":{}}},
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
