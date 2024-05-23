@@ -106,16 +106,14 @@ class CategoryController extends Controller
      * @OA\Get(
      *     path="/api/categories/{id}",
      *     tags={"Categories"},
-     *     summary="Get a specific category",,
+     *     summary="Get a specific category",
      *     security={{"bearer_token":{}}},
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
      *         description="ID of the category",
      *         required=true,
-     *         @OA\Schema(
-     *             type="string"
-     *         )
+    *          @OA\Schema(type="integer", format="int64")
      *     ),
      *     @OA\Response(
      *         response=200,
@@ -160,7 +158,7 @@ class CategoryController extends Controller
     *         description="ID of the category",
     *         required=true,
     *         @OA\Schema(
-    *             type="string"
+    *             type="integer"
     *         )
     *     ),
     *     @OA\RequestBody(
@@ -213,7 +211,7 @@ class CategoryController extends Controller
      * @OA\Delete(
      *     path="/api/categories/{id}",
      *     tags={"Categories"},
-     *     summary="Delete a category",,
+     *     summary="Delete a category",
      *     security={{"bearer_token":{}}},
      *     @OA\Parameter(
      *         name="id",
@@ -221,7 +219,7 @@ class CategoryController extends Controller
      *         description="ID of the category",
      *         required=true,
      *         @OA\Schema(
-     *             type="string"
+     *             type="integer"
      *         )
      *     ),
      *     @OA\Response(

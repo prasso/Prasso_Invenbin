@@ -90,7 +90,7 @@ class BillOfMaterialsController extends Controller
      * @OA\Get(
      *     path="/api/bom/{guid}", 
      *     tags={"BillOfMaterials"}, 
-     *     summary="Get a specific bill of material", ,
+     *     summary="Get a specific bill of material", 
      *     security={{"bearer_token":{}}},
      *     @OA\Parameter(
      *         name="guid",
@@ -197,7 +197,7 @@ class BillOfMaterialsController extends Controller
      * @OA\Delete(
      *     path="/api/bom/{guid}", 
      *     tags={"BillOfMaterials"}, 
-     *     summary="Delete a bill of material",,
+     *     summary="Delete a bill of material",
      *     security={{"bearer_token":{}}}, 
      *     @OA\Parameter(
      *         name="id",

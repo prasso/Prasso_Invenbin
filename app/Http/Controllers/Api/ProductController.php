@@ -39,7 +39,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = ErpProduct::with('products')->paginate(50); 
+        $products = ErpProduct::paginate(50); 
 
         return response()->json($products);
     }
@@ -131,10 +131,7 @@ class ProductController extends Controller
         try {
             // Find the product record by its guid
             $product = ErpProduct::where('guid', $guid)->firstOrFail();
-           
-            // Load related data
-            $product->load('products');
-        
+
             // Return JSON response with the found product record
             return response()->json(['product' => $product]);
         } catch (ModelNotFoundException $exception) {

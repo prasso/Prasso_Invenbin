@@ -9,14 +9,14 @@
         "version": "1.0.0"
     },
     "paths": {
-        "/bom": {
+        "/api/bom": {
             "get": {
                 "tags": [
                     "BillOfMaterials"
                 ],
                 "summary": "Get all bills of material",
                 "description": "Retrieve a list of bills of material records with eager loading of products relationship",
-                "operationId": "3fa642d56982f94413fd0c566f020cd6",
+                "operationId": "721adbc861c1e627873d4cb3dd54ff08",
                 "responses": {
                     "200": {
                         "description": "Successful operation",
@@ -58,7 +58,7 @@
                 ],
                 "summary": "Create a new bill of material",
                 "description": "Create a new bill of material",
-                "operationId": "11562d1ad7ad3a543eb7f2387046b9ac",
+                "operationId": "a6b4b142393512a782344980efed7c8b",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -88,14 +88,14 @@
                 ]
             }
         },
-        "/bom/{guid}": {
+        "/api/bom/{guid}": {
             "get": {
                 "tags": [
                     "BillOfMaterials"
                 ],
                 "summary": "Get a specific bill of material",
                 "description": "Display the specified resource.",
-                "operationId": "86f1634bb89b7cd8b3b9f29e12559ad1",
+                "operationId": "be7c625e75526ffe7273fbac06b4fcc2",
                 "parameters": [
                     {
                         "name": "guid",
@@ -118,7 +118,12 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
             },
             "put": {
                 "tags": [
@@ -126,7 +131,7 @@
                 ],
                 "summary": "Update a bill of material",
                 "description": "Update a bill of material",
-                "operationId": "6719238a5bfb8b0acc7b5cd2345b01a4",
+                "operationId": "0d9da55c07d72c905009c2dad61b987b",
                 "parameters": [
                     {
                         "name": "guid",
@@ -172,7 +177,7 @@
                 ],
                 "summary": "Delete a bill of material",
                 "description": "Remove the specified resource from storage.",
-                "operationId": "92cd50080b5efaee3608a430789e8b12",
+                "operationId": "79cedd158f82fec343d9acada90da754",
                 "parameters": [
                     {
                         "name": "id",
@@ -188,17 +193,22 @@
                     "204": {
                         "description": "BillOfMaterials deleted successfully"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
             }
         },
-        "/categories": {
+        "/api/categories": {
             "get": {
                 "tags": [
                     "Categories"
                 ],
                 "summary": "Get all categories",
                 "description": "Retrieve a list of categories records with eager loading of products relationship",
-                "operationId": "b1b247b2b491b0491c3c728dc33f23f0",
+                "operationId": "ac9c4d978ea4e5b72915ca9728e5b8b1",
                 "responses": {
                     "200": {
                         "description": "Successful operation",
@@ -239,7 +249,7 @@
                 ],
                 "summary": "Create a new category",
                 "description": "Create a new category",
-                "operationId": "c86cd7a85ad06a4fe905bfab62146952",
+                "operationId": "cca49a87d9b0ebb9a98ad7c154b71737",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -269,14 +279,14 @@
                 ]
             }
         },
-        "/categories/{id}": {
+        "/api/categories/{id}": {
             "get": {
                 "tags": [
                     "Categories"
                 ],
                 "summary": "Get a specific category",
                 "description": "Display the specified resource.",
-                "operationId": "486849467f411ec5e4bdf111f50ede87",
+                "operationId": "09767bb2e47dde77dd1e2591428b0ae1",
                 "parameters": [
                     {
                         "name": "id",
@@ -284,7 +294,8 @@
                         "description": "ID of the category",
                         "required": true,
                         "schema": {
-                            "type": "string"
+                            "type": "integer",
+                            "format": "int64"
                         }
                     }
                 ],
@@ -299,7 +310,12 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
             },
             "put": {
                 "tags": [
@@ -307,7 +323,7 @@
                 ],
                 "summary": "Update a category",
                 "description": "Update a category",
-                "operationId": "b648463d94e0caf7b8d842a1008789b2",
+                "operationId": "7dcf71887e585de7f881e9eb98d86126",
                 "parameters": [
                     {
                         "name": "id",
@@ -315,7 +331,7 @@
                         "description": "ID of the category",
                         "required": true,
                         "schema": {
-                            "type": "string"
+                            "type": "integer"
                         }
                     }
                 ],
@@ -353,7 +369,7 @@
                 ],
                 "summary": "Delete a category",
                 "description": "Remove the specified resource from storage.",
-                "operationId": "491dfe5b6b58b480181690ede6550e44",
+                "operationId": "9b61b65823f4a21f182506b34ddf805c",
                 "parameters": [
                     {
                         "name": "id",
@@ -361,7 +377,7 @@
                         "description": "ID of the category",
                         "required": true,
                         "schema": {
-                            "type": "string"
+                            "type": "integer"
                         }
                     }
                 ],
@@ -369,7 +385,12 @@
                     "204": {
                         "description": "Category deleted successfully"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
             }
         },
         "/api/inventory": {
@@ -411,7 +432,7 @@
                 },
                 "security": [
                     {
-                        "bearerAuth": []
+                        "bearer_token": []
                     }
                 ]
             }
@@ -483,7 +504,7 @@
                 },
                 "security": [
                     {
-                        "bearerAuth": []
+                        "bearer_token": []
                     }
                 ]
             },
@@ -572,7 +593,7 @@
                 },
                 "security": [
                     {
-                        "bearerAuth": []
+                        "bearer_token": []
                     }
                 ]
             }
@@ -656,19 +677,19 @@
                 },
                 "security": [
                     {
-                        "bearerAuth": []
+                        "bearer_token": []
                     }
                 ]
             }
         },
-        "/products": {
+        "/api/products": {
             "get": {
                 "tags": [
                     "Products"
                 ],
                 "summary": "Get all products",
                 "description": "Retrieve a list of product records with eager loading of products relationship",
-                "operationId": "080f057905dc32d2f11065d606dc4cd6",
+                "operationId": "d97d1c3727cbac49708b85f7d11f7d58",
                 "responses": {
                     "200": {
                         "description": "Successful operation",
@@ -714,7 +735,7 @@
                 ],
                 "summary": "Create a new product",
                 "description": "Create a new product",
-                "operationId": "eddf8c7847239ddc1040daadd814e21b",
+                "operationId": "785644b7d7dd38af4b51dafd0fbc1b6d",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -744,14 +765,14 @@
                 ]
             }
         },
-        "/products/{guid}": {
+        "/api/products/{guid}": {
             "get": {
                 "tags": [
                     "Products"
                 ],
                 "summary": "Get a specific product",
                 "description": "Display the specified resource.",
-                "operationId": "6d124b5635ad34a7d53425151b0b3783",
+                "operationId": "262249526f8ff03b45e7a29f8f799fc3",
                 "parameters": [
                     {
                         "name": "guid",
@@ -774,7 +795,12 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
             },
             "put": {
                 "tags": [
@@ -782,7 +808,7 @@
                 ],
                 "summary": "Update a product",
                 "description": "Update a product",
-                "operationId": "5bda4aa29bbba8a879a0bc741f37b8a6",
+                "operationId": "2428b47a90014f1b9c12826661106aae",
                 "parameters": [
                     {
                         "name": "guid",
@@ -828,7 +854,7 @@
                 ],
                 "summary": "Delete a product",
                 "description": "Remove the specified resource from storage.",
-                "operationId": "37b5ae0cc0c522aa69f759ba1c706c88",
+                "operationId": "3990b311058e05555d03f3d3ec69f0c9",
                 "parameters": [
                     {
                         "name": "id",
@@ -844,17 +870,22 @@
                     "204": {
                         "description": "Product deleted successfully"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
             }
         },
-        "/product-statuses": {
+        "/api/product-statuses": {
             "get": {
                 "tags": [
                     "ProductStatuses"
                 ],
                 "summary": "Get all statuses that apply to products",
                 "description": "Retrieve a list of product status records",
-                "operationId": "2dedb544a1d062d4486941cbca08435e",
+                "operationId": "72326734939d7cb8eccd410a6aa761ae",
                 "responses": {
                     "200": {
                         "description": "Successful operation",
@@ -892,7 +923,7 @@
                 ],
                 "summary": "Create a new product status",
                 "description": "Create a new product status",
-                "operationId": "758cf3b6fdda7f068351fc3bb0e588f9",
+                "operationId": "e8f28dd2ec9d358c6d72a604873bfcce",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -922,14 +953,14 @@
                 ]
             }
         },
-        "/product-statuses/{id}": {
+        "/api/product-statuses/{id}": {
             "get": {
                 "tags": [
                     "ProductStatuses"
                 ],
                 "summary": "Get a specific product status",
                 "description": "Display the specified resource.",
-                "operationId": "7697e1d45ee291ee218afe103adabb7d",
+                "operationId": "e363aacb70be75ffcc13efe7703ce54c",
                 "parameters": [
                     {
                         "name": "id",
@@ -952,7 +983,12 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
             },
             "put": {
                 "tags": [
@@ -960,7 +996,7 @@
                 ],
                 "summary": "Update a product status",
                 "description": "Update a product status",
-                "operationId": "ae914034f412b37f2644a63e747ee418",
+                "operationId": "867f97947999cefab9bad7f86397a093",
                 "parameters": [
                     {
                         "name": "id",
@@ -1006,7 +1042,7 @@
                 ],
                 "summary": "Delete a product status",
                 "description": "Remove the specified resource from storage.",
-                "operationId": "2d10d1f299441504f304455ae086fe7c",
+                "operationId": "41af96d01528ddd2a69ef301256abcbd",
                 "parameters": [
                     {
                         "name": "id",
@@ -1022,17 +1058,22 @@
                     "204": {
                         "description": "ProductStatus deleted successfully"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
             }
         },
-        "/product-types": {
+        "/api/product-types": {
             "get": {
                 "tags": [
                     "ProductTypes"
                 ],
                 "summary": "Get all product types",
                 "description": "Retrieve a list of product types records with eager loading of products relationship",
-                "operationId": "d28ee1a5d1307dcde29316c556928e70",
+                "operationId": "ba4af95e0852470ac8a41ef8ce519a3e",
                 "responses": {
                     "200": {
                         "description": "Successful operation",
@@ -1070,7 +1111,7 @@
                 ],
                 "summary": "Create a new product type",
                 "description": "Create a new product type",
-                "operationId": "9bc85db4f6a54744583af81c9813f7d0",
+                "operationId": "3c68cfbbbdc9e1ee9dd7f5e76a299cee",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -1100,14 +1141,14 @@
                 ]
             }
         },
-        "/product-types/{id}": {
+        "/api/product-types/{id}": {
             "get": {
                 "tags": [
                     "ProductTypes"
                 ],
                 "summary": "Get a specific product type",
                 "description": "Display the specified resource.",
-                "operationId": "d75ade1466c753f1d56bddb43c0f3ad0",
+                "operationId": "35987a3a6d04fb2d2db78ebc01631157",
                 "parameters": [
                     {
                         "name": "id",
@@ -1115,7 +1156,8 @@
                         "description": "id of the product type",
                         "required": true,
                         "schema": {
-                            "type": "string"
+                            "type": "integer",
+                            "format": "int64"
                         }
                     }
                 ],
@@ -1130,7 +1172,12 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
             },
             "put": {
                 "tags": [
@@ -1138,7 +1185,7 @@
                 ],
                 "summary": "Update a product type",
                 "description": "Update a product type",
-                "operationId": "28e8267dc96f1b130b7a2126c5b01a9a",
+                "operationId": "4be0ec9486ab186777681dde03690fc4",
                 "parameters": [
                     {
                         "name": "id",
@@ -1146,7 +1193,8 @@
                         "description": "id of the product type",
                         "required": true,
                         "schema": {
-                            "type": "string"
+                            "type": "integer",
+                            "format": "int64"
                         }
                     }
                 ],
@@ -1184,7 +1232,7 @@
                 ],
                 "summary": "Delete a product type",
                 "description": "Remove the specified resource from storage.",
-                "operationId": "3e3da076a2591faeecdbb593c3802b9c",
+                "operationId": "722052e72b99ac7c9520e8b6c9d70398",
                 "parameters": [
                     {
                         "name": "id",
@@ -1192,7 +1240,8 @@
                         "description": "ID of the product type",
                         "required": true,
                         "schema": {
-                            "type": "string"
+                            "type": "integer",
+                            "format": "int64"
                         }
                     }
                 ],
@@ -1200,7 +1249,12 @@
                     "204": {
                         "description": "ProductType deleted successfully"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
             }
         }
     },

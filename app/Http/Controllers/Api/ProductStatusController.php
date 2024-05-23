@@ -93,9 +93,7 @@ class ProductStatusController extends Controller
      *         in="path",
      *         description="id of the product status", 
      *         required=true,
-     *         @OA\Schema(
-     *             type="string"
-     *         )
+      *          @OA\Schema(type="integer", format="int64")
      *     ),
      *     @OA\Response(
      *         response=200,
@@ -137,9 +135,7 @@ class ProductStatusController extends Controller
     *         in="path",
     *         description="id of the product status", 
     *         required=true,
-    *         @OA\Schema(
-    *             type="string"
-    *         )
+     *          @OA\Schema(type="integer", format="int64")
     *     ),
     *     @OA\RequestBody(
     *         required=true,
@@ -199,9 +195,7 @@ class ProductStatusController extends Controller
      *         in="path",
      *         description="ID of the product status", 
      *         required=true,
-     *         @OA\Schema(
-     *             type="string"
-     *         )
+      *          @OA\Schema(type="integer", format="int64")
      *     ),
      *     @OA\Response(
      *         response=204,
