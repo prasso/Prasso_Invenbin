@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Log;
 
 /**
  * @OA\Schema(
@@ -223,17 +224,24 @@ class ErpProduct extends ErpBaseModel
     }
 
     /**
-     * Generate array for summary representation of the SalesInvoice model.
+     * Generate array for summary representation of the model.
      * 
      * @return array
      */
     protected function summaryArray()
     {
+       // return $this->getAttributes();
+        if ($this->isSingleRecord) {
+            // Return the complete model attributes
+            return $this->getAttributes();
+        } else {
+           
         return [
             "id" => $this->id,
             "guid" => $this->guid,
             "product_name" => $this->product_name,
-            "created_at" => $this->created_at
+            "inventory_count" => $this->inventory_count
         ];
+    }
     }
 }

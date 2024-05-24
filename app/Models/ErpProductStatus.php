@@ -7,7 +7,25 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @OA\Schema(
- *     schema="ProductStatusInputOutput",
+ *     schema="ProductStatusInput",
+ *     title="ErpProductStatus",
+ *     description="Erp Product Status model",
+ *     @OA\Property(
+ *         property="id",
+ *         type="integer",
+ *         format="int64",
+ *         description="The unique identifier for the product status",
+ *         example=1
+ *     ),
+ *     @OA\Property(
+ *         property="status",
+ *         type="string",
+ *         description="The status of the product",
+ *         example="Active"
+ *     )
+ * )
+ * @OA\Schema(
+ *     schema="ProductStatusOutput",
  *     title="ErpProductStatus",
  *     description="Erp Product Status model",
  *     @OA\Property(
@@ -56,6 +74,6 @@ class ErpProductStatus extends ErpBaseModel
 
     public function products()
     {
-        return $this->hasMany(ErpProduct::class);
+        return $this->hasMany(ErpProduct::class,'product_status_id');
     }
 }

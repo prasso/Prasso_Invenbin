@@ -64,7 +64,7 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/BillOfMaterialsInputOutput"
+                                "$ref": "#/components/schemas/BillOfMaterialsInput"
                             }
                         }
                     }
@@ -75,7 +75,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/BillOfMaterialsInputOutput"
+                                    "$ref": "#/components/schemas/BillOfMaterialsOutput"
                                 }
                             }
                         }
@@ -113,7 +113,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/BillOfMaterialsInputOutput"
+                                    "$ref": "#/components/schemas/BillOfMaterialsOutput"
                                 }
                             }
                         }
@@ -148,7 +148,7 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/BillOfMaterialsInputOutput"
+                                "$ref": "#/components/schemas/BillOfMaterialsInput"
                             }
                         }
                     }
@@ -159,7 +159,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/BillOfMaterialsInputOutput"
+                                    "$ref": "#/components/schemas/BillOfMaterialsOutput"
                                 }
                             }
                         }
@@ -255,7 +255,7 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/CategoryInputOutput"
+                                "$ref": "#/components/schemas/CategoryInput"
                             }
                         }
                     }
@@ -266,7 +266,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/CategoryInputOutput"
+                                    "$ref": "#/components/schemas/CategoryOutput"
                                 }
                             }
                         }
@@ -305,7 +305,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/CategoryInputOutput"
+                                    "$ref": "#/components/schemas/CategoryOutput"
                                 }
                             }
                         }
@@ -331,7 +331,8 @@
                         "description": "ID of the category",
                         "required": true,
                         "schema": {
-                            "type": "integer"
+                            "type": "integer",
+                            "format": "int64"
                         }
                     }
                 ],
@@ -340,7 +341,7 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/CategoryInputOutput"
+                                "$ref": "#/components/schemas/CategoryInput"
                             }
                         }
                     }
@@ -351,7 +352,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/CategoryInputOutput"
+                                    "$ref": "#/components/schemas/CategoryOutput"
                                 }
                             }
                         }
@@ -377,7 +378,8 @@
                         "description": "ID of the category",
                         "required": true,
                         "schema": {
-                            "type": "integer"
+                            "type": "integer",
+                            "format": "int64"
                         }
                     }
                 ],
@@ -534,14 +536,21 @@
                         "application/json": {
                             "schema": {
                                 "required": [
-                                    "adjustment"
+                                    "adjustment",
+                                    "adjustment_type",
+                                    "reason"
                                 ],
                                 "properties": {
                                     "adjustment": {
-                                        "description": "The adjustment amount to update the inventory level",
-                                        "type": "number",
-                                        "format": "float",
-                                        "example": 10
+                                        "type": "integer"
+                                    },
+                                    "adjustment_type": {
+                                        "type": "string",
+                                        "example": "+"
+                                    },
+                                    "reason": {
+                                        "type": "string",
+                                        "example": "return to stock"
                                     }
                                 },
                                 "type": "object"
@@ -629,8 +638,7 @@
                                 ],
                                 "properties": {
                                     "reorder_point": {
-                                        "type": "number",
-                                        "example": "10"
+                                        "type": "integer"
                                     }
                                 },
                                 "type": "object"
@@ -929,7 +937,7 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/ProductStatusInputOutput"
+                                "$ref": "#/components/schemas/ProductStatusInput"
                             }
                         }
                     }
@@ -940,7 +948,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/ProductStatusInputOutput"
+                                    "$ref": "#/components/schemas/ProductStatusOutput"
                                 }
                             }
                         }
@@ -968,7 +976,8 @@
                         "description": "id of the product status",
                         "required": true,
                         "schema": {
-                            "type": "string"
+                            "type": "integer",
+                            "format": "int64"
                         }
                     }
                 ],
@@ -978,7 +987,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/ProductStatusInputOutput"
+                                    "$ref": "#/components/schemas/ProductStatusOutput"
                                 }
                             }
                         }
@@ -1004,7 +1013,8 @@
                         "description": "id of the product status",
                         "required": true,
                         "schema": {
-                            "type": "string"
+                            "type": "integer",
+                            "format": "int64"
                         }
                     }
                 ],
@@ -1013,7 +1023,7 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/ProductStatusInputOutput"
+                                "$ref": "#/components/schemas/ProductStatusInput"
                             }
                         }
                     }
@@ -1024,7 +1034,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/ProductStatusInputOutput"
+                                    "$ref": "#/components/schemas/ProductStatusOutput"
                                 }
                             }
                         }
@@ -1050,7 +1060,8 @@
                         "description": "ID of the product status",
                         "required": true,
                         "schema": {
-                            "type": "string"
+                            "type": "integer",
+                            "format": "int64"
                         }
                     }
                 ],
@@ -1260,13 +1271,32 @@
     },
     "components": {
         "schemas": {
-            "BillOfMaterialsInputOutput": {
+            "BillOfMaterialsInput": {
+                "title": "ErpBom",
+                "description": "Erp Bom model",
+                "properties": {
+                    "erp_product_id": {
+                        "description": "Foreign key ID of the associated ERP product",
+                        "type": "integer"
+                    },
+                    "bom_name": {
+                        "description": "Name of the BOM",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "BillOfMaterialsOutput": {
                 "title": "ErpBom",
                 "description": "Erp Bom model",
                 "properties": {
                     "id": {
                         "description": "ID of the BOM",
                         "type": "integer"
+                    },
+                    "guid": {
+                        "description": "GUID of the BOM",
+                        "type": "string"
                     },
                     "erp_product_id": {
                         "description": "Foreign key ID of the associated ERP product",
@@ -1293,7 +1323,34 @@
                 },
                 "type": "object"
             },
-            "CategoryInputOutput": {
+            "CategoryInput": {
+                "title": "Category",
+                "description": "Erp Category model",
+                "properties": {
+                    "category_name": {
+                        "description": "Name of the category",
+                        "type": "string"
+                    },
+                    "image_file": {
+                        "description": "Image file of the category",
+                        "type": "string"
+                    },
+                    "parent_id": {
+                        "description": "ID of the parent category",
+                        "type": "integer"
+                    },
+                    "short_description": {
+                        "description": "Short description of the category",
+                        "type": "string"
+                    },
+                    "long_description": {
+                        "description": "Long description of the category",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "CategoryOutput": {
                 "title": "Category",
                 "description": "Erp Category model",
                 "properties": {
@@ -1320,10 +1377,6 @@
                     "long_description": {
                         "description": "Long description of the category",
                         "type": "string"
-                    },
-                    "bom_id": {
-                        "description": "ID of the bill of material associated with the category",
-                        "type": "integer"
                     },
                     "updated_by": {
                         "description": "ID of the user who last updated the category",
@@ -1483,7 +1536,25 @@
                 },
                 "type": "object"
             },
-            "ProductStatusInputOutput": {
+            "ProductStatusInput": {
+                "title": "ErpProductStatus",
+                "description": "Erp Product Status model",
+                "properties": {
+                    "id": {
+                        "description": "The unique identifier for the product status",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "status": {
+                        "description": "The status of the product",
+                        "type": "string",
+                        "example": "Active"
+                    }
+                },
+                "type": "object"
+            },
+            "ProductStatusOutput": {
                 "title": "ErpProductStatus",
                 "description": "Erp Product Status model",
                 "properties": {

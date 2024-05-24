@@ -56,12 +56,12 @@ class BillOfMaterialsController extends Controller
     *     security={{"bearer_token":{}}},
     *     @OA\RequestBody(
     *         required=true,
-    *         @OA\JsonContent(ref="#/components/schemas/BillOfMaterialsInputOutput") 
+    *         @OA\JsonContent(ref="#/components/schemas/BillOfMaterialsInput") 
     *     ),
     *     @OA\Response(
     *         response=200,
     *         description="Successful operation",
-    *         @OA\JsonContent(ref="#/components/schemas/BillOfMaterialsInputOutput") 
+    *         @OA\JsonContent(ref="#/components/schemas/BillOfMaterialsOutput") 
     *     )
     * )
      */
@@ -69,8 +69,8 @@ class BillOfMaterialsController extends Controller
     {
          // Validate the incoming request data
          $validatedData = $request->validate([
-            'bom_name' => 'required|string', 
-            'short_description' => 'required|string'
+            'erp_product_id' => 'required|numeric', 
+            'bom_name' => 'required|string'
         ]);
 
 
@@ -104,7 +104,7 @@ class BillOfMaterialsController extends Controller
      *     @OA\Response(
      *         response=200,
      *         description="Successful operation",
-     *         @OA\JsonContent(ref="#/components/schemas/BillOfMaterialsInputOutput") 
+     *         @OA\JsonContent(ref="#/components/schemas/BillOfMaterialsOutput") 
      *         )
      *     )
      * )
@@ -116,7 +116,7 @@ class BillOfMaterialsController extends Controller
             $billOfMaterials = ErpBillOfMaterials::where('guid', $guid)->firstOrFail();
 
             // Load related data
-            $billOfMaterials->load('products');
+            $billOfMaterials->load('product');
 
             // Return JSON response with the found bill of material record
             return response()->json(['billOfMaterials' => $billOfMaterials]); 
@@ -149,12 +149,12 @@ class BillOfMaterialsController extends Controller
     *     ),
     *     @OA\RequestBody(
     *         required=true,
-    *         @OA\JsonContent(ref="#/components/schemas/BillOfMaterialsInputOutput") 
+    *         @OA\JsonContent(ref="#/components/schemas/BillOfMaterialsInput") 
     *     ),
     *     @OA\Response(
     *         response=200,
     *         description="Successful operation",
-    *         @OA\JsonContent(ref="#/components/schemas/BillOfMaterialsInputOutput") 
+    *         @OA\JsonContent(ref="#/components/schemas/BillOfMaterialsOutput") 
     *     )
     * )
      */
@@ -197,8 +197,8 @@ class BillOfMaterialsController extends Controller
      * @OA\Delete(
      *     path="/api/bom/{guid}", 
      *     tags={"BillOfMaterials"}, 
-     *     summary="Delete a bill of material",
-     *     security={{"bearer_token":{}}}, 
+     *     summary="Delete a bill of material", 
+     *     security={{"bearer_token":{}}},
      *     @OA\Parameter(
      *         name="id",
      *         in="path",

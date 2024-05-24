@@ -56,12 +56,12 @@ class ProductStatusController extends Controller
      *     security={{"bearer_token":{}}},
      *     @OA\RequestBody(
      *         required=true,
-     *         @OA\JsonContent(ref="#/components/schemas/ProductStatusInputOutput") 
+     *         @OA\JsonContent(ref="#/components/schemas/ProductStatusInput") 
      *     ),
      *     @OA\Response(
      *         response=200,
      *         description="Successful operation",
-     *         @OA\JsonContent(ref="#/components/schemas/ProductStatusInputOutput") 
+     *         @OA\JsonContent(ref="#/components/schemas/ProductStatusOutput") 
      *     )
      * )
      */
@@ -93,12 +93,12 @@ class ProductStatusController extends Controller
      *         in="path",
      *         description="id of the product status", 
      *         required=true,
-      *          @OA\Schema(type="integer", format="int64")
+     *          @OA\Schema(type="integer", format="int64")
      *     ),
      *     @OA\Response(
      *         response=200,
      *         description="Successful operation",
-     *         @OA\JsonContent(ref="#/components/schemas/ProductStatusInputOutput") 
+     *         @OA\JsonContent(ref="#/components/schemas/ProductStatusOutput") 
      *         )
      *     )
      * )
@@ -108,7 +108,6 @@ class ProductStatusController extends Controller
         try {
             // Find the product type record by its id
             $productStatus = ErpProductStatus::where('id', $id)->firstOrFail();
-
 
             // Return JSON response with the found product type record
             return response()->json(['productStatus' => $productStatus]); 
@@ -135,16 +134,16 @@ class ProductStatusController extends Controller
     *         in="path",
     *         description="id of the product status", 
     *         required=true,
-     *          @OA\Schema(type="integer", format="int64")
+    *         @OA\Schema(type="integer", format="int64")
     *     ),
     *     @OA\RequestBody(
     *         required=true,
-    *         @OA\JsonContent(ref="#/components/schemas/ProductStatusInputOutput") 
+    *         @OA\JsonContent(ref="#/components/schemas/ProductStatusInput") 
     *     ),
     *     @OA\Response(
     *         response=200,
     *         description="Successful operation",
-    *         @OA\JsonContent(ref="#/components/schemas/ProductStatusInputOutput") 
+    *         @OA\JsonContent(ref="#/components/schemas/ProductStatusOutput") 
     *     )
     * )
      */
@@ -195,7 +194,7 @@ class ProductStatusController extends Controller
      *         in="path",
      *         description="ID of the product status", 
      *         required=true,
-      *          @OA\Schema(type="integer", format="int64")
+     *         @OA\Schema(type="integer", format="int64")
      *     ),
      *     @OA\Response(
      *         response=204,

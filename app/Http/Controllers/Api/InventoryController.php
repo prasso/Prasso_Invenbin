@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\ErpProduct;
 use App\Models\ErpProductUsageLog;
+use Illuminate\Support\Facades\Log;
 
 class InventoryController extends Controller
 {
@@ -15,7 +16,7 @@ class InventoryController extends Controller
      *      operationId="getInventory",
      *      tags={"Inventory"},
      *      summary="Get inventory levels for all products",
-     *     security={{"bearer_token":{}}},
+     *      security={{"bearer_token":{}}},
      *      description="Returns a list of all products along with their inventory levels.",
      *      @OA\Response(
      *          response=200,
@@ -37,8 +38,9 @@ class InventoryController extends Controller
      */
     public function index()
     {
+        Log::info('getting all inventory ');
         // Retrieve all products with their inventory counts
-        $inventory = ErpProduct::select('id', 'product_name', 'inventory_count')->paginate(50);
+        $inventory = ErpProduct::select('id','guid' ,'product_name', 'inventory_count')->paginate(50);
         
         // Return JSON response with inventory data
         return response()->json($inventory);
@@ -90,17 +92,19 @@ class InventoryController extends Controller
      */
     public function show($id)
     {
+        try{
         // Find the product by its ID
-        $product = ErpProduct::where('id',$id)->select('id', 'product_name', 'inventory_count')->get();
-
-        // Check if the product exists
-        if (!$product) {
-            // Return a 404 Not Found response if the product is not found
-            return response()->json(['error' => 'Product not found.'], 404);
-        }
-
+        $product = ErpProduct::where('id',$id)->firstOrFail();
+ 
+        $product->isSingleRecord = true;
         // Return JSON response with inventory data for the specific product
         return response()->json($product);
+        }
+        catch(\Throwable $e){
+            return response()->json(['error' => 'Product not found.'], 404);
+        } 
+       
+
     }
 
     /**
@@ -123,13 +127,6 @@ class InventoryController extends Controller
      *     @OA\RequestBody(
      *         required=true,
      *         description="Adjustment value for the inventory count",
-     *         @OA\JsonContent(
-     *             required={"adjustment"},
-     *             @OA\Property(property="adjustment", type="number", format="float", example=10, description="The adjustment amount to update the inventory level")
-     *         )
-     *     ),
-     *     @OA\RequestBody(
-     *         required=true,
      *         @OA\JsonContent(
      *             required={"adjustment", "adjustment_type","reason"},
      *             @OA\Property(property="adjustment", type="integer"),
@@ -195,8 +192,13 @@ class InventoryController extends Controller
         $product->inventory_count = $newInventoryLevel;
         $product->save();
 
+        $product->isSingleRecord = true;
+
         //usage log
-        ErpProductUsageLog::create($request->all());
+        $data = $request->except(['id']);
+        $requestData = array_merge($data, ['erp_product_id' => $id, 'updated_by' => auth()->id()]);
+
+        ErpProductUsageLog::create($requestData);
 
         // Check if the new inventory level falls below the reorder point
         if ($newInventoryLevel <= $product->reorder_point) {
@@ -240,9 +242,9 @@ class InventoryController extends Controller
      *          required=true,
      *          description="Reorder point data",
      *          @OA\JsonContent(
-     *              required={"reorder_point"},
-     *              @OA\Property(property="reorder_point", type="number", example="10")
-     *          )
+     *             required={"reorder_point"},
+     *             @OA\Property(property="reorder_point", type="integer"),
+    *         )
      *      ),
      *      @OA\Response(
      *          response=200,
@@ -278,11 +280,11 @@ class InventoryController extends Controller
 
         // Validate the request data
         $request->validate([
-            'reorder_point' => 'required|numeric', // Assuming the reorder point is a numeric value
+            'reorder_point' => 'required|numeric'
         ]);
-
         // Set the reorder point for the product
         $product->reorder_point = $request->input('reorder_point');
+        $product->isSingleRecord = true;
         $product->save();
 
         // Check if the current inventory level falls below the newly set reorder point

@@ -6,14 +6,34 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
+* @OA\Schema(
+ *     schema="BillOfMaterialsInput",
+ *     title="ErpBom",
+ *     description="Erp Bom model",
+ *     @OA\Property(
+ *         property="erp_product_id",
+ *         type="integer",
+ *         description="Foreign key ID of the associated ERP product"
+ *     ),
+ *     @OA\Property(
+ *         property="bom_name",
+ *         type="string",
+ *         description="Name of the BOM"
+ *     )
+ * )
  * @OA\Schema(
- *     schema="BillOfMaterialsInputOutput",
+ *     schema="BillOfMaterialsOutput",
  *     title="ErpBom",
  *     description="Erp Bom model",
  *     @OA\Property(
  *         property="id",
  *         type="integer",
  *         description="ID of the BOM"
+ *     ),
+ *     @OA\Property(
+ *         property="guid",
+ *         type="string",
+ *         description="GUID of the BOM"
  *     ),
  *     @OA\Property(
  *         property="erp_product_id",
@@ -60,7 +80,7 @@ class ErpBillOfMaterials extends ErpBaseModel
 
     public function product()
     {
-        return $this->hasOne(ErpProduct::class);
+        return $this->hasOne(ErpProduct::class,  'id', 'erp_product_id');
     }
 
     public function components()

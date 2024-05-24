@@ -69,9 +69,11 @@ class ErpProductUsageLog extends ErpBaseModel
     protected $table = 'erp_product_usage_log';
 
     protected $fillable = [
+        'erp_product_id',
+        'adjustment_type',
+        'reason',
         'adjustment',
-        'product_used_on',
-        'used_by',
+        'updated_by'
     ];
 
     public function product()

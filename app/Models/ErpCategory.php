@@ -6,8 +6,38 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
+ * * @OA\Schema(
+ *     schema="CategoryInput",
+ *     title="Category",
+ *     description="Erp Category model",
+ *     @OA\Property(
+ *         property="category_name",
+ *         type="string",
+ *         description="Name of the category"
+ *     ),
+ *     @OA\Property(
+ *         property="image_file",
+ *         type="string",
+ *         description="Image file of the category"
+ *     ),
+ *     @OA\Property(
+ *         property="parent_id",
+ *         type="integer",
+ *         description="ID of the parent category"
+ *     ),
+ *     @OA\Property(
+ *         property="short_description",
+ *         type="string",
+ *         description="Short description of the category"
+ *     ),
+ *     @OA\Property(
+ *         property="long_description",
+ *         type="string",
+ *         description="Long description of the category"
+ *     )
+ * )
  * @OA\Schema(
- *     schema="CategoryInputOutput",
+ *     schema="CategoryOutput",
  *     title="Category",
  *     description="Erp Category model",
  *     @OA\Property(
@@ -39,11 +69,6 @@ use Illuminate\Database\Eloquent\Model;
  *         property="long_description",
  *         type="string",
  *         description="Long description of the category"
- *     ),
- *     @OA\Property(
- *         property="bom_id",
- *         type="integer",
- *         description="ID of the bill of material associated with the category"
  *     ),
  *     @OA\Property(
  *         property="updated_by",

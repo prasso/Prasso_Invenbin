@@ -73,12 +73,12 @@ class CategoryController extends Controller
     *     security={{"bearer_token":{}}},
     *     @OA\RequestBody(
     *         required=true,
-    *         @OA\JsonContent(ref="#/components/schemas/CategoryInputOutput")
+    *         @OA\JsonContent(ref="#/components/schemas/CategoryInput")
     *     ),
     *     @OA\Response(
     *         response=200,
     *         description="Successful operation",
-    *         @OA\JsonContent(ref="#/components/schemas/CategoryInputOutput")
+    *         @OA\JsonContent(ref="#/components/schemas/CategoryOutput")
     *     )
     * )
      */
@@ -113,12 +113,12 @@ class CategoryController extends Controller
      *         in="path",
      *         description="ID of the category",
      *         required=true,
-    *          @OA\Schema(type="integer", format="int64")
+     *          @OA\Schema(type="integer", format="int64")
      *     ),
      *     @OA\Response(
      *         response=200,
      *         description="Successful operation",
-     *         @OA\JsonContent(ref="#/components/schemas/CategoryInputOutput")
+     *         @OA\JsonContent(ref="#/components/schemas/CategoryOutput")
      *         )
      *     )
      * )
@@ -157,18 +157,16 @@ class CategoryController extends Controller
     *         in="path",
     *         description="ID of the category",
     *         required=true,
-    *         @OA\Schema(
-    *             type="integer"
-    *         )
+     *          @OA\Schema(type="integer", format="int64")
     *     ),
     *     @OA\RequestBody(
     *         required=true,
-    *         @OA\JsonContent(ref="#/components/schemas/CategoryInputOutput")
+    *         @OA\JsonContent(ref="#/components/schemas/CategoryInput")
     *     ),
     *     @OA\Response(
     *         response=200,
     *         description="Successful operation",
-    *         @OA\JsonContent(ref="#/components/schemas/CategoryInputOutput")
+    *         @OA\JsonContent(ref="#/components/schemas/CategoryOutput")
     *     )
     * )
      */
@@ -183,9 +181,9 @@ class CategoryController extends Controller
                 // Your validation rules here
             ]);
 
+            Log::debug(json_encode($request));
             // Remove unnecessary data
             $data = $request->except(['id']);
-
             // Update the category record with the request data
             $category->update($data);
 
@@ -218,9 +216,7 @@ class CategoryController extends Controller
      *         in="path",
      *         description="ID of the category",
      *         required=true,
-     *         @OA\Schema(
-     *             type="integer"
-     *         )
+     *          @OA\Schema(type="integer", format="int64")
      *     ),
      *     @OA\Response(
      *         response=204,
