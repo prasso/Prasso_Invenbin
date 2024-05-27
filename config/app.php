@@ -63,6 +63,7 @@ return [
         App\Providers\JetstreamServiceProvider::class,
         App\Extensions\SuperAdminUserProvider::class,
         App\Extensions\InstructorUserProvider::class,
+        //Faxt\Invenbin\InvenbinServiceProvider::class,
 
     ],
 

@@ -5,7 +5,7 @@ return [
     'documentations' => [
         'default' => [
             'api' => [
-                'title' => 'L5 Swagger UI for Prasso_Invenbin',
+                'title' => 'L5 Swagger UI for invenbin',
             ],
 
             'routes' => [
@@ -40,6 +40,7 @@ return [
                 */
                 'annotations' => [
                     base_path('app'),
+                    base_path('packages/faxt/invenbin/src'),
                 ],
 
             ],

@@ -1,5 +1,5 @@
 <?php
-
+use Filament\Pages;
 return [
 
     /*
@@ -70,5 +70,7 @@ return [
     */
 
     'livewire_loading_delay' => 'default',
+
+
 
 ];

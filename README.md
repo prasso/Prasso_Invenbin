@@ -1,4 +1,4 @@
-# Prasso_Invenbin
+# invenbin
 
 schema
 ![Mermaid Schema](public/images/mermaid-schema.png)
@@ -192,6 +192,95 @@ This Inventory Management System is designed to provide efficient tracking and m
 4. Run `php artisan migrate` to create the database tables.
 5. Serve the application using `php artisan serve`.
 6. Access the application in your web browser.
+
+# Faxt Invenbin
+
+A description of your package.
+
+## Installation
+
+To install the `faxt/invenbin` package, follow the steps below:
+
+### Step 1: Add Repository to Composer
+
+If your package is not hosted on Packagist, add the repository to your `composer.json` file. 
+
+Open your project's `composer.json` file and add the following under the `repositories` section:
+
+```json
+"repositories": [
+    {
+        "type": "path",
+        "url": "packages/faxt/invenbin"
+    }
+]
+```
+### Step 2: Require the Package
+
+Run the following command to require the package:
+
+``` bash
+
+composer require faxt/invenbin:dev-main
+``` 
+
+If you want to install a specific version, replace dev-main with the desired version.
+
+### Step 3: Publish the Configuration (Optional)
+
+If your package includes configuration files, publish them using the following command:
+
+```bash
+php artisan vendor:publish --provider="Faxt\Invenbin\InvenbinServiceProvider" --tag="config"
+```
+### Step 3.5: Configure Swagger Paths  (Optional)
+If you want to use Swagger, You need to add your package's source path to the Swagger configuration. Open config/l5-swagger.php and find the paths section. Add the path to your package's source directory.
+Example
+```
+'paths' => [
+        'annotations' => [
+            base_path('app'),
+            base_path('packages/faxt/invenbin/src'),
+        ],
+        'docs' => storage_path('api-docs'),
+        'views' => base_path('resources/views/vendor/l5-swagger'),
+    ],
+    ```
+
+### Register the admin panel
+
+The admin panel needs registering in your app service provider before you can use it.
+
+```php
+use Faxt\Invenbin\Support\Facades\InvenbinPanel;
+
+class AppServiceProvider extends ServiceProvider
+{
+    public function register(): void
+    {
+        InvenbinPanel::register();
+    }
+```
+### Step 4: Run Migrations (If Applicable)
+
+run the migrations using the following command:
+
+```bash
+
+php artisan migrate
+```
+
+### Usage
+You can now use the faxt/invenbin package in your Laravel application. Refer to the documentation for more details on how to use the package.
+
+### Additional Information
+For more detailed information about the package and its usage, please refer to the documentation or contact the author:
+
+Author: Bobbi Perreault
+Email: bcp@faxt.com
+
+
+By following these instructions, you should be able to install and use `faxt/invenbin` package in your Laravel projects. 
 
 ## Usage
 
