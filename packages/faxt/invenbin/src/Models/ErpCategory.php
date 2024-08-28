@@ -87,7 +87,6 @@ class ErpCategory extends ErpBaseModel
         'parent_id',
         'short_description',
         'long_description',
-        'bom_id',
         'updated_by',
     ];
 

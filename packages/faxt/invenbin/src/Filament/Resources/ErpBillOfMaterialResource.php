@@ -97,7 +97,7 @@ class ErpBillOfMaterialResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListErpBillOfMaterials::route('/'),
+            'index' => Pages\ListErpBillOfMaterial::route('/'),
             'create' => Pages\CreateErpBillOfMaterial::route('/create'),
             'edit' => Pages\EditErpBillOfMaterial::route('/{record}/edit'),
         ];
