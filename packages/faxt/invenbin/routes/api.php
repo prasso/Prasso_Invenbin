@@ -9,6 +9,7 @@ use Faxt\Invenbin\Http\Controllers\Api\CategoryController;
 use Faxt\Invenbin\Http\Controllers\Api\ProductTypeController;
 use Faxt\Invenbin\Http\Controllers\Api\ProductStatusController;
 use Faxt\Invenbin\Http\Controllers\Api\BillOfMaterialsController;
+use Faxt\Invenbin\Http\Controllers\Api\LookupController;
 use Faxt\Invenbin\Http\Controllers\Api\ComponentController;
 
 Route::prefix('api')->group(function () {
@@ -69,5 +70,12 @@ Route::prefix('api')->group(function () {
     Route::put('/inventory/{item}', [InventoryController::class, 'update']);
     //Set reorder points and trigger notifications:
     Route::put('/inventory/{item}/reorder', [InventoryController::class, 'setReorderPoint']);
+
+    // Lookups
+    Route::get('lookups/categories', [LookupController::class, 'categories']);
+    Route::get('lookups/units-of-measure', [LookupController::class, 'unitsOfMeasure']);
+    Route::get('lookups/dimension-units', [LookupController::class, 'dimensionUnits']);
+    Route::get('lookups/statuses', [LookupController::class, 'statuses']);
+    Route::get('lookups/types', [LookupController::class, 'types']);
 
 });

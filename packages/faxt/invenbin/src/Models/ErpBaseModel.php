@@ -18,6 +18,7 @@ class ErpBaseModel extends Model
     use SoftDeletes;
 
     public $productListArray = [];
+    public $timestamps = true;
 
     /**
      * Flag to indicate whether the model should return single or multiple records format in API responses.
@@ -123,7 +124,6 @@ class ErpBaseModel extends Model
     
         public function setDeliveryDateAttribute($value)
         {
-            Log::info('setting delivery date correct format');
             $this->attributes['delivery_date'] = $this->formatDate($value);
         }
     
@@ -229,15 +229,16 @@ protected function formatDate($value)
      */
     public function toArray()
     {
-        $toArray = parent::toArray();
-
-        if (!$this->isSingleRecord) {
-            $toArray = $this->summaryArray();
+        $attributes = parent::toArray();
+    
+        if ($this->isSingleRecord) {
+            // Return the complete model attributes
+            return $attributes;
+        } else {
+            // Return only the summary attributes
+            return $this->summaryArray();
         }
-
-        return $toArray;
     }
-
     /**
      * Generate array for summary representation of the model.
      * This method should be implemented in the child classes.

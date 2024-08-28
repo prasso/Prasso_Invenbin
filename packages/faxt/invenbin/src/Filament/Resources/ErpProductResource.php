@@ -21,6 +21,7 @@ class ErpProductResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+
     public static function form(Form $form): Form
     {
         return $form
@@ -98,7 +99,7 @@ class ErpProductResource extends Resource
                                         Components\Hidden::make('erp_product_id'),
                                         Components\TextInput::make('title'),
                                         Components\TextInput::make('descriptor'),
-                                        Components\CheckBox::make('is_bulleted_list'),
+                                        Components\Checkbox::make('is_bulleted_list'),
                                         Components\TextInput::make('list_order'),
                                     ]),
                             ]),

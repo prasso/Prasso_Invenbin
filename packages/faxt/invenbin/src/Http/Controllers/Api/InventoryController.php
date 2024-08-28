@@ -38,7 +38,6 @@ class InventoryController extends Controller
      */
     public function index()
     {
-        Log::info('getting all inventory ');
         // Retrieve all products with their inventory counts
         $inventory = ErpProduct::select('id','guid' ,'product_name', 'inventory_count')->paginate(50);
         
@@ -224,8 +223,8 @@ class InventoryController extends Controller
     /**
      * Set the reorder point for a specific product and trigger notifications if necessary.
      *
-     * @OA\Post(
-     *      path="/api/products/{id}/reorder-point",
+     * @OA\Put(
+     *      path="/api/products/{id}/reorder",
      *      operationId="setReorderPoint",
      *      tags={"Products"},
      *      summary="Set reorder point for a product",
@@ -251,7 +250,7 @@ class InventoryController extends Controller
      *          description="Success response",
      *          @OA\JsonContent(
      *              @OA\Property(property="message", type="string", example="Reorder point updated successfully."),
-     *              @OA\Property(property="product", ref="#/components/schemas/ProductInputOutput")
+     *              @OA\Property(property="product", ref="#/components/schemas/ProductOutput")
      *          )
      *      ),
      *      @OA\Response(
