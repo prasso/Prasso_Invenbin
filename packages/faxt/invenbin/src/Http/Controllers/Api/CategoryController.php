@@ -14,10 +14,6 @@ use Illuminate\Support\Facades\Log;
  *      type="http",
  *      scheme="bearer"
  * )
- * @OA\Response(
- *      response="401",
- *      description="Unauthorized",
- * )
  */
 class CategoryController extends Controller
 {
