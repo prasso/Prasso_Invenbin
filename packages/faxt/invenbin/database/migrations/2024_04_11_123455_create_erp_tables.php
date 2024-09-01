@@ -11,15 +11,17 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('emails_queue', function (Blueprint $table) {
-            $table->id();
-            $table->string('email', 255);
-            $table->boolean('email_sent')->default(false);
-            $table->text('text_of_email');
-            $table->timestamp('date_sent');
-            $table->timestamp('date_queued')->useCurrent();
-            $table->timestamps();
-        });
+         if (!Schema::hasTable('emails_queue')) {
+            Schema::create('emails_queue', function (Blueprint $table) {
+                $table->id();
+                $table->string('email', 255);
+                $table->boolean('email_sent')->default(false);
+                $table->text('text_of_email');
+                $table->timestamp('date_sent');
+                $table->timestamp('date_queued')->useCurrent();
+                $table->timestamps();
+            });
+        }
 
         Schema::create('erp_product_statuses', function (Blueprint $table) {
             $table->id('id');
