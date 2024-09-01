@@ -246,6 +246,7 @@ Example
         'views' => base_path('resources/views/vendor/l5-swagger'),
     ],
     ```
+Include the @OA\Info() annotation. The @OA\Info() should be added by the main application using the package.
 
 ### Register the admin panel
 
