@@ -9,14 +9,6 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Log;
 /**
- * @OA\Info(
- *     title="Prasso Invenbin API",
- *     version="1.0.0",
- *     description="API endpoints for Prasso Invenbin",
- *      @OA\Contact(
- *          email="bcp@faxt.com"
- *      ),
- * )
  * @OAS\SecurityScheme(
  *      securityScheme="bearer_token",
  *      type="http",
