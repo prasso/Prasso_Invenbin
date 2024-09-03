@@ -85,14 +85,16 @@ class ErpBaseModel extends Model
      *
      * @return BelongsTo|null
      */
-    public function updatedBy(): ? BelongsTo
+    public function updatedBy(): ?BelongsTo
     {
-        if (Schema::connection("mysql")->hasColumn($this->getTable(),'updated_by')) {
-            return $this->belongsTo(User::class, 'updated_by');
+        if (Schema::connection('mysql')->hasColumn($this->getTable(), 'updated_by')) {
+            $userModel = config('invenbin.user_model', \App\Models\User::class);
+            return $this->belongsTo($userModel, 'updated_by');
         }
-
+    
         return null;
     }
+
     /**
      * The attributes that should be mutated to dates using configured format.
      *
@@ -218,7 +220,9 @@ protected function formatDate($value)
      */
     protected function serializeDate($value)
     {
-        return $value->format(config('app.date_format'));
+        $dateFormat = config('invenbin.date_format', config('app.date_format', 'd/m/Y'));
+        return $value->format($dateFormat);
+
     }
 
 
