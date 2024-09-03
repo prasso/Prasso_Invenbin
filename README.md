@@ -221,7 +221,7 @@ Run the following command to require the package:
 
 ``` bash
 
-composer require faxt/invenbin:dev-main
+composer require faxt/invenbin:dev-master
 ``` 
 
 If you want to install a specific version, replace dev-main with the desired version.
@@ -246,6 +246,7 @@ Example
         'views' => base_path('resources/views/vendor/l5-swagger'),
     ],
     ```
+Include the @OA\Info() annotation. The @OA\Info() should be added by the main application using the package.
 
 ### Register the admin panel
 
