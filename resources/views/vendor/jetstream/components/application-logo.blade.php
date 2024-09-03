@@ -1,1 +1,0 @@
-<img src="/images/barimorphosis_logo.png">
