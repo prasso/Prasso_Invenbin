@@ -26,8 +26,6 @@ class ErpProductTypeResource extends Resource
             ->schema([
                 Forms\Components\Select::make('updated_by')
                     ->relationship('updatedBy', 'id'),
-                Forms\Components\Select::make('parent_id')
-                    ->relationship('parent', 'id'),
                 Forms\Components\TextInput::make('product_type')
             ]);
     }
@@ -37,7 +35,6 @@ class ErpProductTypeResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('user_updated.id'),
-                Tables\Columns\TextColumn::make('category.id'),
                 Tables\Columns\TextColumn::make('product_type')
             ])
             ->filters([

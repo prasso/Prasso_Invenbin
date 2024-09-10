@@ -1,7 +1,7 @@
 # invenbin
 
 schema
-![Mermaid Schema](public/images/mermaid-schema.png)
+![Mermaid Schema](./invenbin-mermaid-schema.png)
 ```
 %%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#4CAF50', 'secondaryColor': '#03A9F4', 'tertiaryColor': '#f0ad4e', 'primaryBorderColor': '#333', 'noteBorderColor': '#333', 'rowBorderColor': '#333', 'startArrowColor': '#333', 'endArrowColor': '#333', 'textColor': '#333', 'fontSize': 16 }}}%%
 classDiagram
@@ -200,12 +200,13 @@ A description of your package.
 ## Installation
 
 To install the `faxt/invenbin` package, follow the steps below:
+A video is available at [https://youtu.be/Q1346GyQjzI](https://youtu.be/Q1346GyQjzI)
 
 ### Step 1: Add Repository to Composer
 
-If your package is not hosted on Packagist, add the repository to your `composer.json` file. 
+This package is not hosted on Packagist - add the repository to your `composer.json` file. 
 
-Open your project's `composer.json` file and add the following under the `repositories` section:
+Open your project's `composer.json` file and add the location as shown under the `repositories` section:
 
 ```json
 "repositories": [
@@ -224,7 +225,7 @@ Run the following command to require the package:
 composer require faxt/invenbin:dev-master
 ``` 
 
-If you want to install a specific version, replace dev-main with the desired version.
+If you want to install a specific version, replace dev-master with the desired version.
 
 ### Step 3: Publish the Configuration (Optional)
 
