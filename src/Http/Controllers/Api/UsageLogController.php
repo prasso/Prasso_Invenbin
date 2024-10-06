@@ -5,7 +5,7 @@ namespace Faxt\Invenbin\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class UsageLogController extends Controller
+class UsageLogController extends ErpBaseController
 {
     /**
      * Display a listing of the resource.

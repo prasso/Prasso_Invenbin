@@ -33,7 +33,7 @@ class InvenbinPanelManager
 
     protected string $panelId = 'invenbin';
 
-    protected static $resources = [
+    protected static $invenbin_resources = [
         Resources\ErpBillOfMaterialResource::class,
         Resources\ErpCategoryResource::class,
         Resources\ErpProductResource::class,
@@ -44,10 +44,10 @@ class InvenbinPanelManager
 
     ];
 
-    protected static $pages = [
+    protected static $invenbin_pages = [
     ];
 
-    protected static $widgets = [
+    protected static $invenbin_widgets = [
         
     ];
 
@@ -122,13 +122,13 @@ class InvenbinPanelManager
             ->font('Poppins')
             ->middleware($panelMiddleware)
             ->pages(
-                static::getPages()
+                static::getInvenbinPages()
             )
             ->resources(
-                static::getResources()
+                static::getInvenbinResources()
             )
             ->widgets(
-                static::getWidgets()
+                static::getInvenbinWidgets()
             )
             ->authMiddleware([
                 Authenticate::class,
@@ -147,22 +147,22 @@ class InvenbinPanelManager
         return $this;
     }
 
-    public static function getResources()
+    public static function getInvenbinResources()
     {
-        return static::$resources;
+        return static::$invenbin_resources;
     }
 
-    public static function getPages()
+    public static function getInvenbinPages()
     {
-        return static::$pages;
+        return static::$invenbin_pages;
     }
 
     /**
      * @return string[]
      */
-    public static function getWidgets(): array
+    public static function getInvenbinWidgets(): array
     {
-        return static::$widgets;
+        return static::$invenbin_widgets;
     }
 
     public function callHook(string $class, string $hookName, ...$args): mixed

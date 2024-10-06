@@ -3,6 +3,7 @@
 namespace Faxt\Invenbin\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
+use Illuminate\Auth\AuthManager;
 use App\Http\Controllers\Controller;
 use  Faxt\Invenbin\Models\ErpProduct;
 use  Faxt\Invenbin\Models\ErpComponent;
@@ -11,18 +12,19 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Log;
 
-class ProductController extends Controller
+class ProductController extends ErpBaseController
 {
 
-    public function __construct(Request $request)
+    public function __construct(Request $request, AuthManager $auth)
     {
-        parent::__construct( $request);
-        
+        // Call the parent constructor with the AuthManager, not the Request
+        parent::__construct($auth);
+
+        // Use middleware to set the user for each request
         $this->middleware(function ($request, $next) {
-            $this->setUser($request);
+            $this->setUser($request); // Set the user based on the current request
             return $next($request);
         });
-    
     }
 
     /**

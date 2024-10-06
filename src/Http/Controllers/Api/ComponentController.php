@@ -3,9 +3,8 @@
 namespace Faxt\Invenbin\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
-class ComponentController extends Controller
+class ComponentController extends ErpBaseController
 {
     /**
      * Display a listing of the resource.

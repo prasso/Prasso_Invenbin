@@ -8,7 +8,7 @@ use Faxt\Invenbin\Models\ErpProduct;
 use Faxt\Invenbin\Models\ErpProductUsageLog;
 use Illuminate\Support\Facades\Log;
 
-class InventoryController extends Controller
+class InventoryController extends ErpBaseController
 {
     /**
      * @OA\Get(

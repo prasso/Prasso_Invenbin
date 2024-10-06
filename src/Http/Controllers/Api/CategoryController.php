@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Log;
  *      scheme="bearer"
  * )
  */
-class CategoryController extends Controller
+class CategoryController extends ErpBaseController
 {
     /**
      * Display a listing of the resource.

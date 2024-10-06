@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Log;
 
 
-class ProductStatusController extends Controller
+class ProductStatusController extends ErpBaseController
 {
     /**
      * Display a listing of the resource.

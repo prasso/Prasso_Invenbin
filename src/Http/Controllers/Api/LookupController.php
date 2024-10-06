@@ -10,7 +10,7 @@ use Faxt\Invenbin\Models\ErpProductStatus;
 use Faxt\Invenbin\Models\ErpProductType;
 use Illuminate\Http\Request;
 
-class LookupController extends Controller
+class LookupController extends ErpBaseController
 {
     /**
      * Return a list of categories.

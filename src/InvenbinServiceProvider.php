@@ -35,8 +35,7 @@ class InvenbinServiceProvider extends ServiceProvider
             $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
         }
 
-
-        Filament::registerResources(InvenbinPanel::getResources());
+        Filament::registerResources(InvenbinPanel::getInvenbinResources());
 
         
     }
@@ -52,27 +51,3 @@ class InvenbinServiceProvider extends ServiceProvider
 
     }
 }
-/**
- * 
- *         //https://github.com/filamentphp/filament/issues/86 
-       
-       Filament::serving(function () {
-
-        $resources = [
-            \Faxt\Invenbin\Filament\Resources\ErpProductResource::class,
-        ];
-
-        // Register Resources
-        Filament::registerResources($resources);
-
-        $pages = [
-            \Faxt\Invenbin\Filament\Resources\ErpProductResource\Pages\ListErpProducts::class,
-            \Faxt\Invenbin\Filament\Resources\ErpProductResource\Pages\CreateErpProduct::class,
-            \Faxt\Invenbin\Filament\Resources\ErpProductResource\Pages\EditErpProduct::class,
-        ];
-
-        // Register Pages
-            Filament::registerPages($pages);
-
-    });
- */

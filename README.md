@@ -222,10 +222,10 @@ Run the following command to require the package:
 
 ``` bash
 
-composer require faxt/invenbin:dev-master
+composer require faxt/invenbin:dev-main
 ``` 
 
-If you want to install a specific version, replace dev-master with the desired version.
+If you want to install a specific version, replace dev-main with the desired version.
 
 ### Step 3: Publish the Configuration (Optional)
 

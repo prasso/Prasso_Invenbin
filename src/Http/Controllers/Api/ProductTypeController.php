@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Log;
 
-class ProductTypeController extends Controller 
+class ProductTypeController extends ErpBaseController 
 {
     /**
      * Display a listing of the resource.
