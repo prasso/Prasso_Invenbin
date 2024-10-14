@@ -3,6 +3,7 @@
 namespace Faxt\Invenbin\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Auth\AuthManager;
 use Faxt\Invenbin\Models\ErpProductStatus;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -12,6 +13,17 @@ use Illuminate\Support\Facades\Log;
 
 class ProductStatusController extends ErpBaseController
 {
+    public function __construct(Request $request, AuthManager $auth)
+    {
+        // Call the parent constructor with the AuthManager, not the Request
+        parent::__construct($auth);
+
+        // Use middleware to set the user for each request
+        $this->middleware(function ($request, $next) {
+            $this->setUser($request); // Set the user based on the current request
+            return $next($request);
+        });
+    }
     /**
      * Display a listing of the resource.
      *
@@ -211,9 +223,6 @@ class ProductStatusController extends ErpBaseController
         }
 
         try {
-            // Delete related records in product_status_details table (assuming this is similar to sales_details)
-            $productStatus->productStatusDetails()->delete(); 
-
             // Delete the product status record
             $productStatus->delete();
 

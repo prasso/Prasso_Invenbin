@@ -223,8 +223,6 @@ class BillOfMaterialsController extends ErpBaseController
         }
 
         try {
-            // Delete related records in bom_details table (assuming this is similar to sales_details)
-            $billOfMaterials->billOfMaterialsDetails()->delete(); 
 
             // Delete the bill of material record
             $billOfMaterials->delete();

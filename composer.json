@@ -1,13 +1,7 @@
 {
     "name": "faxt/invenbin",
-    "description": "A description of your package",
+    "description": "inventory management for Laravel projects",
     "type": "library",
-    "authors": [
-        {
-            "name": "Bobbi Perreault",
-            "email": "bcp@faxt.com"
-        }
-    ],
     "require": {
         "php": "^8.0",
         "illuminate/support": "^9.0|^10.0|^11.0",

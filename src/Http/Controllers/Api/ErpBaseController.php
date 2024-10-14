@@ -53,30 +53,6 @@ class ErpBaseController extends Controller
         return $this->user;
     }
 
-    /**
-     * setUser is an optional function that will authorize the user from token
-     * it is able to be called from any controller method, but is not a requirement
-     * it will throw an authorization exception if the token of the user is not valid
-   
-    protected function setUser(Request $request)
-    {
-        // Get the authenticated user
-        $this->user = Auth::user();
-
-        // Optionally set up a user if none is found
-        if ($this->user === null) {
-            $this->user = $this->setUpUser($request, $this->user); // Ensure setUpUser is implemented elsewhere
-        }
-
-        // Throw an exception if no user is found
-        if ($this->user === null) {
-            Log::info('setUser: no user found');
-            throw new AuthorizationException('Unauthorized access: no valid user found.');
-        }
-
-        return $this->user; // Optionally return the user
-    }
-  */
     protected function setUpUser($request)
     {
         $accessToken = $request->header(config('constants.AUTHORIZATION_'));
@@ -128,5 +104,39 @@ class ErpBaseController extends Controller
         
         setcookie(config('constants.COMMUNITYTOKEN'), $accessToken, time() + (86400 * 30), "/");
         setcookie(config('constants.COMMUNTIYREMEMBER'), $accessToken, time() + (86400 * 30), "/");
+    }
+     /**
+     * success response method.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function sendResponse($result, $message)
+    {
+    	$response = [
+            'success' => true,
+            'data'    => $result,
+            'message' => $message,
+        ];
+
+        return response()->json($response, 200);
+    }
+
+    /**
+     * return error response.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function sendError($error, $errorMessages = [], $code = 400)
+    {
+    	$response = [
+            'success' => false,
+            'message' => $error,
+        ];
+
+        if(!empty($errorMessages)){
+            $response['data'] = $errorMessages;
+        }
+
+        return response()->json($response, $code);
     }
 }

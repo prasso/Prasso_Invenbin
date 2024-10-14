@@ -287,9 +287,9 @@ class ProductController extends ErpBaseController
      *     summary="Delete a product",
      *     security={{"bearer_token":{}}},
      *     @OA\Parameter(
-     *         name="id",
+     *         name="guid",
      *         in="path",
-     *         description="ID of the product",
+     *         description="GUID of the product",
      *         required=true,
      *         @OA\Schema(
      *             type="string"
@@ -310,15 +310,18 @@ class ProductController extends ErpBaseController
         }
 
         try {
-            // Delete related records in product_details table (assuming this is similar to sales_details)
-            $product->productDetails()->delete();
-
+            // Check if the product has any related product descriptors before attempting to delete
+            if ($product->descriptors()->exists()) {
+                // Delete related records in product_details table
+                $product->descriptors()->delete();
+            }
+    
             // Delete the product record
             $product->delete();
-
+    
             return response()->json(['message' => 'Product deleted successfully'], 200);
         } catch (\Exception $e) {
-            return response()->json(['message' => 'Failed to delete product'], 500);
+            return response()->json(['message' => 'Failed to delete product: ' . $e->getMessage()], 500);
         }
     }
 
@@ -327,8 +330,8 @@ class ProductController extends ErpBaseController
         $erpProductData = [
             'product_name' => $validatedData['product_name'],
             'short_description' => $validatedData['short_description'],
-            'product_type_id' => 2, // this is component product type
-            'product_status_id' => 3, // this is active product status
+            'product_type_id' => 1, // this is component product type
+            'product_status_id' => 1, // this is active product status
             'updated_by' => $this->user->id,
         ];
     
@@ -337,10 +340,6 @@ class ProductController extends ErpBaseController
             $erpProductData['sku'] = $validatedData['sku'];
         }
 
-        // Conditionally add 'vendor_id' if it exists and is not null
-        /*if (isset($validatedData['vendor_id']) && !is_null($validatedData['vendor_id'])) {
-            $erpProductData['vendor_id'] = $validatedData['vendor_id'];
-        }*/
         // Conditionally add 'our_price' if it exists and is not null
         if (isset($validatedData['our_price']) && !is_null($validatedData['our_price'])) {
             $erpProductData['our_price'] = $validatedData['our_price'];
@@ -350,7 +349,7 @@ class ProductController extends ErpBaseController
             $erpProductData['retail_price'] = $validatedData['retail_price'];
         }
 
-        return ErpProduct::factory()->create($erpProductData);
+        return ErpProduct::createWithDefaults($erpProductData);
     }
     
 

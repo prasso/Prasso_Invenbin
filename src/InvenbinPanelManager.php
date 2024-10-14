@@ -20,7 +20,7 @@ use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\Support\Facades\Route;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
-use Faxt\Invenbin\Filament\AvatarProviders\GravatarProvider;
+use App\Filament\AvatarProviders\GravatarProvider;
 use Faxt\Invenbin\Filament\Pages;
 use Faxt\Invenbin\Filament\Resources;
 use Illuminate\Support\Facades\Log;
@@ -31,7 +31,7 @@ class InvenbinPanelManager
 
     protected array $extensions = [];
 
-    protected string $panelId = 'invenbin';
+    protected string $panelId = 'admin';
 
     protected static $invenbin_resources = [
         Resources\ErpBillOfMaterialResource::class,

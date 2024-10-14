@@ -69,7 +69,7 @@ Route::prefix('api')->group(function () {
     //Update inventory levels:
     Route::put('/inventory/{item}', [InventoryController::class, 'update']);
     //Set reorder points and trigger notifications:
-    Route::put('/inventory/{item}/reorder', [InventoryController::class, 'setReorderPoint']);
+    Route::put('/products/{id}/reorder', [InventoryController::class, 'setReorderPoint']);
 
     // Lookups
     Route::get('lookups/categories', [LookupController::class, 'categories']);

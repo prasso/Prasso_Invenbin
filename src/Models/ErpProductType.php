@@ -44,13 +44,9 @@ class ErpProductType extends ErpBaseModel
         ];
     }
 
-    public function parent()
-    {
-        return $this->belongsTo(ErpProductType::class, 'parent_id');
-    }
 
     public function products()
     {
-        return $this->hasMany(ErpProduct::class);
+        return $this->hasMany(ErpProduct::class, 'product_type_id');
     }
 }

@@ -5,6 +5,9 @@ namespace Faxt\Invenbin\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
+
+
 
 /**
  *   @OA\Schema(
@@ -38,16 +41,6 @@ use Illuminate\Support\Facades\Log;
 *               type="object",
 *               @OA\Property(property="id", type="integer", example=62),
 *               @OA\Property(property="category_name", type="string", example="Ink")
-*             )
-*         )
-*     ),
-*      @OA\Property(
-*          property="vendor",
-*          type="array",
-*          @OA\Items(
-*               type="object",
-*               @OA\Property(property="id", type="integer", example=62),
-*               @OA\Property(property="name", type="string", example="Acme Co")
 *             )
 *         )
 *     ),
@@ -116,12 +109,6 @@ use Illuminate\Support\Facades\Log;
  *         property="price",
  *         type="float",
  *         description="price of the product"
- *     ),
- *     @OA\Property(
- *         property="vendor_id",
- *         type="numeric",
- *         description="ID of vendor for the product ",
- *         example="1"
  *     ),
  *     @OA\Property(
  *         property="erp_bom_id",
@@ -198,12 +185,6 @@ use Illuminate\Support\Facades\Log;
  *         example="1"
  *     ),
  *     @OA\Property(
- *         property="vendor_id",
- *         type="numeric",
- *         description="ID of vendor for the product ",
- *         example="1"
- *     ),
- *     @OA\Property(
  *         property="admin_comments",
  *         type="string",
  *         description="Comments/Notes about the product"
@@ -215,8 +196,7 @@ use Illuminate\Support\Facades\Log;
 
 class ErpProduct extends ErpBaseModel
 {
-    use HasFactory;
-
+    
     protected $fillable = [
         'sku',
         'guid',
@@ -245,6 +225,50 @@ class ErpProduct extends ErpBaseModel
         'product_type_id',
         'updated_by'
     ];
+
+    /**
+     * Create a new instance of ErpProduct with default values, allowing overrides.
+     *
+     * @param array $overrides
+     * @return self
+     */
+    public static function createWithDefaults(array $overrides = []): self
+    {
+        // Define default values
+        $defaultValues = [
+            'guid' => Str::uuid(),
+            'sku' => '',
+            'product_name' => '',
+            'short_description' => '',
+            'stock_location' => '',
+            'our_price' => 0.00,
+            'retail_price' => 0.00,
+            'currency_code' => '',
+            'unit_of_measure_id' => 1,
+            'admin_comments' => '',
+            'weight' => 0.00,
+            'length' => 0.00,
+            'height' => 0.00,
+            'width' => 0.00,
+            'dimension_unit_id' => 1,
+            'list_order' => 0,
+            'rating_sum' => 0,
+            'total_rating_votes' => 0,
+            'default_image' => '',
+            'owned_by' => 0,
+            'inventory_count' => 0,
+            'reorder_point' => 0,
+            'product_status_id' => 1, // Active in the product_statuses table
+            'product_type_id' => 1,  // Assembly in the product_types table
+            'attribute_xml' => ''
+        ];
+
+        // Merge default values with the provided overrides
+        $data = array_merge($defaultValues, $overrides);
+
+        // Create and return a new instance of the model
+        return self::create($data);
+    }
 
     public function status()
     {
@@ -305,7 +329,7 @@ class ErpProduct extends ErpBaseModel
     private function returnSingle(){
         
         // Ensure relationships are loaded
-        $this->loadmissing(['categories', 'vendor', 'status', 'type']);
+        $this->loadmissing(['categories', 'status', 'type']);
 
         return [
             'id' => $this->id,

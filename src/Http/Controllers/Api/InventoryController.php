@@ -3,6 +3,7 @@
 namespace Faxt\Invenbin\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
+use Illuminate\Auth\AuthManager;
 use App\Http\Controllers\Controller;
 use Faxt\Invenbin\Models\ErpProduct;
 use Faxt\Invenbin\Models\ErpProductUsageLog;
@@ -10,6 +11,18 @@ use Illuminate\Support\Facades\Log;
 
 class InventoryController extends ErpBaseController
 {
+    public function __construct(Request $request, AuthManager $auth)
+    {
+        // Call the parent constructor with the AuthManager, not the Request
+        parent::__construct($auth);
+
+        // Use middleware to set the user for each request
+        $this->middleware(function ($request, $next) {
+            $this->setUser($request); // Set the user based on the current request
+            return $next($request);
+        });
+    }
+
     /**
      * @OA\Get(
      *      path="/api/inventory",
@@ -39,7 +52,7 @@ class InventoryController extends ErpBaseController
     public function index()
     {
         // Retrieve all products with their inventory counts
-        $inventory = ErpProduct::select('id','guid' ,'product_name', 'inventory_count')->paginate(50);
+        $inventory = ErpProduct::paginate(50);
         
         // Return JSON response with inventory data
         return response()->json($inventory);

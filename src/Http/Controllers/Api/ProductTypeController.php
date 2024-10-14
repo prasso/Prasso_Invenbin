@@ -3,6 +3,7 @@
 namespace Faxt\Invenbin\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
+use Illuminate\Auth\AuthManager;
 use App\Http\Controllers\Controller;
 use Faxt\Invenbin\Models\ErpProductType; 
 use Illuminate\Support\Facades\Validator;
@@ -10,7 +11,18 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Log;
 
 class ProductTypeController extends ErpBaseController 
-{
+{ 
+    public function __construct(Request $request, AuthManager $auth)
+    {
+        // Call the parent constructor with the AuthManager, not the Request
+        parent::__construct($auth);
+
+        // Use middleware to set the user for each request
+        $this->middleware(function ($request, $next) {
+            $this->setUser($request); // Set the user based on the current request
+            return $next($request);
+        });
+    }
     /**
      * Display a listing of the resource.
      *
@@ -68,8 +80,7 @@ class ProductTypeController extends ErpBaseController
     {
          // Validate the incoming request data
          $validatedData = $request->validate([
-            'product_type_name' => 'required|string', 
-            'short_description' => 'required|string'
+            'product_type' => 'required|string'
         ]);
 
         // Create a new ErpProductType instance with the validated data
@@ -209,14 +220,11 @@ class ProductTypeController extends ErpBaseController
     public function destroy(string $id)
     {
         $productType = ErpProductType::where('id', $id)->first();
-
         if (!$productType) {
             return response()->json(['message' => 'ProductType not found'], 404); 
         }
 
         try {
-            // Delete related records in product_type_details table (assuming this is similar to sales_details)
-            $productType->productTypeDetails()->delete(); 
 
             // Delete the product type record
             $productType->delete();

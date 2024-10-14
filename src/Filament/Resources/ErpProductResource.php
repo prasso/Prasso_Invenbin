@@ -2,6 +2,7 @@
 
 namespace Faxt\Invenbin\Filament\Resources;
 
+
 use Faxt\Invenbin\Filament\Resources\ErpProductResource\Pages;
 use Faxt\Invenbin\Filament\Resources\ErpProductResource\RelationManagers;
 use Faxt\Invenbin\Models\ErpProduct;    
