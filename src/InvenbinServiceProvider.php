@@ -9,6 +9,9 @@ use Faxt\Invenbin\Filament\Resources\ErpProductResource;
 use Faxt\Invenbin\Filament\Resources\ErpProductResource\Pages;
 use Faxt\Invenbin\Support\Facades\InvenbinPanel;
 use Illuminate\Support\Facades\Log;
+use Livewire\Livewire;
+use Faxt\Invenbin\Filament\Resources\ErpProductResource\RelationManagers\CategoriesRelationManager;
+
 
 
 class InvenbinServiceProvider extends ServiceProvider
@@ -36,6 +39,9 @@ class InvenbinServiceProvider extends ServiceProvider
         }
 
         Filament::registerResources(InvenbinPanel::getInvenbinResources());
+        Livewire::component('faxt.invenbin.filament.resources.erp-product-resource.relation-managers.categories-relation-manager', CategoriesRelationManager::class);
+
+        Livewire::component('faxt.invenbin.filament.resources.erp-product-resource.pages.edit-erp-product', \Faxt\Invenbin\Filament\Resources\ErpProductResource\Pages\EditErpProduct::class);
 
         
     }
