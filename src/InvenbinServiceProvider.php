@@ -11,6 +11,8 @@ use Faxt\Invenbin\Support\Facades\InvenbinPanel;
 use Illuminate\Support\Facades\Log;
 use Livewire\Livewire;
 use Faxt\Invenbin\Filament\Resources\ErpProductResource\RelationManagers\CategoriesRelationManager;
+use Faxt\Invenbin\Filament\Resources\ErpProductResource\RelationManagers\ImagesRelationManager;
+use Faxt\Invenbin\Filament\Resources\ErpProductResource\RelationManagers\ProductDescriptorsRelationManager;
 
 
 
@@ -40,6 +42,8 @@ class InvenbinServiceProvider extends ServiceProvider
 
         Filament::registerResources(InvenbinPanel::getInvenbinResources());
         Livewire::component('faxt.invenbin.filament.resources.erp-product-resource.relation-managers.categories-relation-manager', CategoriesRelationManager::class);
+        Livewire::component('faxt.invenbin.filament.resources.erp-product-resource.relation-managers.images-relation-relation-manager', ImagesRelationManager::class);
+        Livewire::component('faxt.invenbin.filament.resources.erp-product-resource.relation-managers.product-descriptors-relation-manager', ProductDescriptorsRelationManager::class);
 
         Livewire::component('faxt.invenbin.filament.resources.erp-product-resource.pages.edit-erp-product', \Faxt\Invenbin\Filament\Resources\ErpProductResource\Pages\EditErpProduct::class);
 
