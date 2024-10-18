@@ -46,8 +46,13 @@ class InvenbinServiceProvider extends ServiceProvider
         Livewire::component('faxt.invenbin.filament.resources.erp-product-resource.relation-managers.product-descriptors-relation-manager', ProductDescriptorsRelationManager::class);
 
         Livewire::component('faxt.invenbin.filament.resources.erp-product-resource.pages.edit-erp-product', \Faxt\Invenbin\Filament\Resources\ErpProductResource\Pages\EditErpProduct::class);
+        Livewire::component('faxt.invenbin.filament.resources.erp-bill-of-material-resource.pages.edit-erp-bill-of-material', \Faxt\Invenbin\Filament\Resources\ErpBillOfMaterialResource\Pages\EditErpBillOfMaterial::class);
+        Livewire::component('faxt.invenbin.filament.resources.erp-category-resource.pages.edit-erp-category', \Faxt\Invenbin\Filament\Resources\ErpCategoryResource\Pages\EditErpCategory::class);
+        Livewire::component('faxt.invenbin.filament.resources.erp-product-status-resource.pages.edit-erp-product-status', \Faxt\Invenbin\Filament\Resources\ErpProductStatusResource\Pages\EditErpProductStatus::class);
+        Livewire::component('faxt.invenbin.filament.resources.erp-product-type-resource.pages.edit-erp-product-type', \Faxt\Invenbin\Filament\Resources\ErpProductTypeResource\Pages\EditErpProductType::class);
+        Livewire::component('faxt.invenbin.filament.resources.erp-product-usage-log-resource.pages.edit-erp-product-usage-log', \Faxt\Invenbin\Filament\Resources\ErpProductUsageLogResource\Pages\EditErpProductUsageLog::class);
+        Livewire::component('faxt.invenbin.filament.resources.erp-unit-of-measure-resource.pages.edit-erp-unit-of-measure', \Faxt\Invenbin\Filament\Resources\ErpUnitOfMeasureResource\Pages\EditErpUnitOfMeasure::class);
 
-        
     }
 
     public function register()
