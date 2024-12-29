@@ -20,7 +20,10 @@ class ErpBillOfMaterialResource extends Resource
     protected static ?string $model = ErpBillOfMaterials::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-
+    public static function getSlug(): string
+    {
+        return 'erp-bill-of-material'; // override to force singular
+    }
 
     public static function form(Form $form): Form
     {
