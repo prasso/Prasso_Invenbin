@@ -53,6 +53,7 @@ class InvenbinServiceProvider extends ServiceProvider
         Livewire::component('faxt.invenbin.filament.resources.erp-product-usage-log-resource.pages.edit-erp-product-usage-log', \Faxt\Invenbin\Filament\Resources\ErpProductUsageLogResource\Pages\EditErpProductUsageLog::class);
         Livewire::component('faxt.invenbin.filament.resources.erp-unit-of-measure-resource.pages.edit-erp-unit-of-measure', \Faxt\Invenbin\Filament\Resources\ErpUnitOfMeasureResource\Pages\EditErpUnitOfMeasure::class);
 
+        Livewire::component('invenbin.assistant', \Faxt\Invenbin\Livewire\Assistant::class);
     }
 
     public function register()
