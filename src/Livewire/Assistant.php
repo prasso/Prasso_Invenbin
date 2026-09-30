@@ -89,6 +89,11 @@ class Assistant extends Component
             $prompt = "You are the invenbin operations copilot embedded in the ERP dashboard for the workspace \"{$context['workspace']}\". "
                 . "Answer questions about inventory, purchasing, orders, and operations using only the live data summary below. "
                 . "Be concise and specific; cite numbers from the data. If the data doesn't cover the question, say so plainly.\n\n"
+                . "FEATURES:\n"
+                . "- Users can import existing data via CSV under ERP -> Import Data in the admin panel. Supported imports: "
+                . "customers/vendors (parties), products with opening stock counts, chart of accounts with opening balances, "
+                . "and sales/purchase order history. Column names are mapped automatically; a preview lets the user "
+                . "review duplicates and fix row actions before anything is written.\n\n"
                 . "LIVE DATA:\n{$contextJson}\n\n"
                 . "CONVERSATION:\n{$history}\n\n"
                 . "Reply with a short, plain-text answer.";
