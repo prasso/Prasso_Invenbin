@@ -2,6 +2,7 @@
 
 namespace Faxt\Invenbin\Filament\Resources\ErpProductResource\Pages;
 
+use Filament\Actions\CreateAction;
 use Faxt\Invenbin\Filament\Resources\ErpProductResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
@@ -13,7 +14,7 @@ class ListErpProducts extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+            CreateAction::make(),
         ];
     }
 }

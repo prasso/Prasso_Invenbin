@@ -3,13 +3,31 @@
 namespace Faxt\Invenbin\Filament\Resources;
 
 
+use Filament\Schemas\Schema;
+use Filament\Schemas\Components\Section;
+use Filament\Forms\Components\Hidden;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Repeater;
+use Filament\Forms\Components\Checkbox;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\TrashedFilter;
+use Filament\Actions\EditAction;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteBulkAction;
+use Filament\Actions\ForceDeleteBulkAction;
+use Filament\Actions\RestoreBulkAction;
+use Faxt\Invenbin\Filament\Resources\ErpProductResource\RelationManagers\CategoriesRelationManager;
+use Faxt\Invenbin\Filament\Resources\ErpProductResource\RelationManagers\ProductDescriptorsRelationManager;
+use Faxt\Invenbin\Filament\Resources\ErpProductResource\RelationManagers\ImagesRelationManager;
+use Faxt\Invenbin\Filament\Resources\ErpProductResource\Pages\ListErpProducts;
+use Faxt\Invenbin\Filament\Resources\ErpProductResource\Pages\CreateErpProduct;
+use Faxt\Invenbin\Filament\Resources\ErpProductResource\Pages\EditErpProduct;
 use Faxt\Invenbin\Filament\Resources\ErpProductResource\Pages;
 use Faxt\Invenbin\Filament\Resources\ErpProductResource\RelationManagers;
 use Faxt\Invenbin\Models\ErpProduct;    
 use Filament\Forms\Components;
-use Filament\Forms\Components\Section;
 use Filament\Forms;
-use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -20,48 +38,48 @@ class ErpProductResource extends Resource
 {
     protected static ?string $model = ErpProduct::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-rectangle-stack';
 
 
-    public static function form(Form $form): Form
+    public static function form(Schema $schema): Schema
     {
-        return $form
-            ->schema([
+        return $schema
+            ->components([
                 Section::make()
                     ->columns(2)
                     ->schema([
-                        Components\Hidden::make('id'),
-                        Components\Hidden::make('guid'),
-                        Components\TextInput::make('sku')->required(),
-                        Components\TextInput::make('product_name')->required(),
-                        Components\TextInput::make('short_description'),
-                        Components\Select::make('product_status_id')
+                        Hidden::make('id'),
+                        Hidden::make('guid'),
+                        TextInput::make('sku')->required(),
+                        TextInput::make('product_name')->required(),
+                        TextInput::make('short_description'),
+                        Select::make('product_status_id')
                             ->relationship('status', 'status')
                             ->required(), // Assuming product status is required
-                        Components\Select::make('product_type_id')
+                        Select::make('product_type_id')
                             ->relationship('type', 'product_type')
                             ->required(), // Assuming product type is required
-                        Components\Select::make('categories')
+                        Select::make('categories')
                             ->relationship('categories', 'category_name') // Assuming 'id' is the primary key and 'name' is the display column in the categories table
                             ->multiple() // Save the selected categories to the pivot table 'product_category_maps'
                             ->required(), // Assuming at least one category is required
-                        Components\TextInput::make('stock_location'),
-                        Components\TextInput::make('our_price')
+                        TextInput::make('stock_location'),
+                        TextInput::make('our_price')
                             ->numeric()
                             ->required(), // Assuming our price is required
-                        Components\TextInput::make('retail_price')
+                        TextInput::make('retail_price')
                             ->numeric()
                             ->required(), // Assuming retail price is required
-                        Components\TextInput::make('currency_code'),
-                        Components\Select::make('unit_of_measure_id')
+                        TextInput::make('currency_code'),
+                        Select::make('unit_of_measure_id')
                             ->relationship('unitOfMeasure', 'name')
                             ->required(), // Assuming unit of measure is required
-                        Components\TextInput::make('admin_comments'),
-                        Components\TextInput::make('list_order'),
-                        Components\TextInput::make('default_image'),
-                        Components\TextInput::make('owned_by'),
-                        Components\TextInput::make('inventory_count'),
-                        Components\TextInput::make('reorder_point'),
+                        TextInput::make('admin_comments'),
+                        TextInput::make('list_order'),
+                        TextInput::make('default_image'),
+                        TextInput::make('owned_by'),
+                        TextInput::make('inventory_count'),
+                        TextInput::make('reorder_point'),
 
                         Section::make('Dimensions')
                         ->collapsible()
@@ -69,19 +87,19 @@ class ErpProductResource extends Resource
                         ->label('Dimensions') // Label for the collapsed section
                         ->collapsed(true) // Start collapsed
                         ->schema([
-                            Components\TextInput::make('weight')
+                            TextInput::make('weight')
                                 ->label('Weight')
                                 ->numeric(),
-                            Components\TextInput::make('length')
+                            TextInput::make('length')
                                 ->label('Length')
                                 ->numeric(),
-                            Components\TextInput::make('height')
+                            TextInput::make('height')
                                 ->label('Height')
                                 ->numeric(),
-                            Components\TextInput::make('width')
+                            TextInput::make('width')
                                 ->label('Width')
                                 ->numeric(),
-                            Components\Select::make('dimension_unit_id')
+                            Select::make('dimension_unit_id')
                                 ->label('Dimension Unit')
                                 ->relationship('dimensionUnit', 'name'),
                         ]),
@@ -91,17 +109,17 @@ class ErpProductResource extends Resource
                             ->collapsed(true) 
                             ->columns(1)
                             ->schema([
-                                Components\Repeater::make('descriptors')
+                                Repeater::make('descriptors')
                                     ->columns(3)
                                     ->relationship('descriptors')
                                     ->defaultItems(0)
                                     ->schema([
-                                        Components\Hidden::make('id'),
-                                        Components\Hidden::make('erp_product_id'),
-                                        Components\TextInput::make('title'),
-                                        Components\TextInput::make('descriptor'),
-                                        Components\Checkbox::make('is_bulleted_list'),
-                                        Components\TextInput::make('list_order'),
+                                        Hidden::make('id'),
+                                        Hidden::make('erp_product_id'),
+                                        TextInput::make('title'),
+                                        TextInput::make('descriptor'),
+                                        Checkbox::make('is_bulleted_list'),
+                                        TextInput::make('list_order'),
                                     ]),
                             ]),
                         
@@ -111,24 +129,24 @@ class ErpProductResource extends Resource
                             ->collapsed(true) 
                             ->columns(1)
                             ->schema([
-                                Components\Repeater::make('images')
+                                Repeater::make('images')
                                     ->columns(3)
                                     ->relationship('images')
                                     ->defaultItems(0)
                                     ->schema([
-                                        Components\Hidden::make('id'),
-                                        Components\Hidden::make('erp_product_id'),
-                                        Components\TextInput::make('caption'),
-                                        Components\TextInput::make('image_file'),
-                                        Components\TextInput::make('list_order'),
+                                        Hidden::make('id'),
+                                        Hidden::make('erp_product_id'),
+                                        TextInput::make('caption'),
+                                        TextInput::make('image_file'),
+                                        TextInput::make('list_order'),
                                     ]),
                             ]),
                         Section::make()
                             ->columns(3)
                             ->schema([
-                                Components\TextInput::make('created_at')->readonly(),
-                                Components\TextInput::make('updated_at')->readonly(),
-                                Components\TextInput::make('updated_by')->readonly(),
+                                TextInput::make('created_at')->readonly(),
+                                TextInput::make('updated_at')->readonly(),
+                                TextInput::make('updated_by')->readonly(),
                             ]),
                     ]),
             ]);
@@ -139,28 +157,28 @@ class ErpProductResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('guid'),
-                Tables\Columns\TextColumn::make('sku'),
-                Tables\Columns\TextColumn::make('default_image'),
-                Tables\Columns\TextColumn::make('product_name'),
-                Tables\Columns\TextColumn::make('product_type.product_type'),
-                Tables\Columns\TextColumn::make('short_description'),
-                Tables\Columns\TextColumn::make('product_status.status'),
-                Tables\Columns\TextColumn::make('reorder_point'),
-                Tables\Columns\TextColumn::make('inventory_count'),
-                Tables\Columns\TextColumn::make('erp_product_category_maps.erp_category_id'),
+                TextColumn::make('guid'),
+                TextColumn::make('sku'),
+                TextColumn::make('default_image'),
+                TextColumn::make('product_name'),
+                TextColumn::make('product_type.product_type'),
+                TextColumn::make('short_description'),
+                TextColumn::make('product_status.status'),
+                TextColumn::make('reorder_point'),
+                TextColumn::make('inventory_count'),
+                TextColumn::make('erp_product_category_maps.erp_category_id'),
             ])
             ->filters([
-                Tables\Filters\TrashedFilter::make(),
+                TrashedFilter::make(),
             ])
-            ->actions([
-                Tables\Actions\EditAction::make(),
+            ->recordActions([
+                EditAction::make(),
             ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                    Tables\Actions\ForceDeleteBulkAction::make(),
-                    Tables\Actions\RestoreBulkAction::make(),
+            ->toolbarActions([
+                BulkActionGroup::make([
+                    DeleteBulkAction::make(),
+                    ForceDeleteBulkAction::make(),
+                    RestoreBulkAction::make(),
                 ]),
             ]);
     }
@@ -168,18 +186,18 @@ class ErpProductResource extends Resource
     public static function getRelations(): array
     {
         return [
-            RelationManagers\CategoriesRelationManager::class,
-            RelationManagers\ProductDescriptorsRelationManager::class,
-            RelationManagers\ImagesRelationManager::class,
+            CategoriesRelationManager::class,
+            ProductDescriptorsRelationManager::class,
+            ImagesRelationManager::class,
         ];
     }
 
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListErpProducts::route('/'),
-            'create' => Pages\CreateErpProduct::route('/create'),
-            'edit' => Pages\EditErpProduct::route('/{record}/edit'),
+            'index' => ListErpProducts::route('/'),
+            'create' => CreateErpProduct::route('/create'),
+            'edit' => EditErpProduct::route('/{record}/edit'),
         ];
     }
 

@@ -2,6 +2,7 @@
 
 namespace Faxt\Invenbin\Http\Controllers\Api;
 
+use Exception;
 use App\Http\Controllers\Controller;
 use Illuminate\Auth\AuthManager;
 use Faxt\Invenbin\Models\ErpProductStatus;
@@ -27,11 +28,11 @@ class ProductStatusController extends ErpBaseController
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      * @OA\Get(
-     *     path="/api/product-statuses", 
-     *     tags={"ProductStatuses"}, 
-     *     summary="Get all statuses that apply to products", 
+     *     path="/api/product-statuses",
+     *     tags={"ProductStatuses"},
+     *     summary="Get all statuses that apply to products",
      *     description="Retrieve a list of product status records",
      *     security={{"bearer_token":{}}},
      *     @OA\Response(
@@ -58,26 +59,25 @@ class ProductStatusController extends ErpBaseController
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Response
      * @OA\Post(
-     *     path="/api/product-statuses", 
-     *     tags={"ProductStatuses"}, 
-     *     summary="Create a new product status", 
+     *     path="/api/product-statuses",
+     *     tags={"ProductStatuses"},
+     *     summary="Create a new product status",
      *     description="Create a new product status",
      *     security={{"bearer_token":{}}},
      *     @OA\RequestBody(
      *         required=true,
-     *         @OA\JsonContent(ref="#/components/schemas/ProductStatusInput") 
+     *         @OA\JsonContent(ref="#/components/schemas/ProductStatusInput")
      *     ),
      *     @OA\Response(
      *         response=200,
      *         description="Successful operation",
-     *         @OA\JsonContent(ref="#/components/schemas/ProductStatusOutput") 
+     *         @OA\JsonContent(ref="#/components/schemas/ProductStatusOutput")
      *     )
      * )
      */
-
     public function store(Request $request)
     {
         $validatedData = $request->validate([
@@ -93,24 +93,24 @@ class ProductStatusController extends ErpBaseController
      * Display the specified resource.
      *
      * @param  string $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      *
      * @OA\Get(
-     *     path="/api/product-statuses/{id}", 
-     *     tags={"ProductStatuses"}, 
-     *     summary="Get a specific product status", 
+     *     path="/api/product-statuses/{id}",
+     *     tags={"ProductStatuses"},
+     *     summary="Get a specific product status",
      *     security={{"bearer_token":{}}},
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
-     *         description="id of the product status", 
+     *         description="id of the product status",
      *         required=true,
      *          @OA\Schema(type="integer", format="int64")
      *     ),
      *     @OA\Response(
      *         response=200,
      *         description="Successful operation",
-     *         @OA\JsonContent(ref="#/components/schemas/ProductStatusOutput") 
+     *         @OA\JsonContent(ref="#/components/schemas/ProductStatusOutput")
      *         )
      *     )
      * )
@@ -132,32 +132,32 @@ class ProductStatusController extends ErpBaseController
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @param  string $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      * @OA\Put(
-    *     path="/api/product-statuses/{id}", 
-    *     tags={"ProductStatuses"}, 
-    *     summary="Update a product status", 
-    *     description="Update a product status",
-    *     security={{"bearer_token":{}}},
-    *     @OA\Parameter(
-    *         name="id",
-    *         in="path",
-    *         description="id of the product status", 
-    *         required=true,
-    *         @OA\Schema(type="integer", format="int64")
-    *     ),
-    *     @OA\RequestBody(
-    *         required=true,
-    *         @OA\JsonContent(ref="#/components/schemas/ProductStatusInput") 
-    *     ),
-    *     @OA\Response(
-    *         response=200,
-    *         description="Successful operation",
-    *         @OA\JsonContent(ref="#/components/schemas/ProductStatusOutput") 
-    *     )
-    * )
+     *     path="/api/product-statuses/{id}",
+     *     tags={"ProductStatuses"},
+     *     summary="Update a product status",
+     *     description="Update a product status",
+     *     security={{"bearer_token":{}}},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="id of the product status",
+     *         required=true,
+     *         @OA\Schema(type="integer", format="int64")
+     *     ),
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(ref="#/components/schemas/ProductStatusInput")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *         @OA\JsonContent(ref="#/components/schemas/ProductStatusOutput")
+     *     )
+     * )
      */
     public function update(Request $request, $id)
     {
@@ -182,7 +182,7 @@ class ProductStatusController extends ErpBaseController
         } 
         catch (ModelNotFoundException $exception) {
             return response()->json(['message' => 'ProductStatus not found'], 404); 
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             // Log the exception for further investigation
             Log::error($exception);
             // Return a generic error message
@@ -195,22 +195,22 @@ class ProductStatusController extends ErpBaseController
      * Remove the specified resource from storage.
      *
      * @param  string $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      * @OA\Delete(
-     *     path="/api/product-statuses/{id}", 
-     *     tags={"ProductStatuses"}, 
-     *     summary="Delete a product status", 
+     *     path="/api/product-statuses/{id}",
+     *     tags={"ProductStatuses"},
+     *     summary="Delete a product status",
      *     security={{"bearer_token":{}}},
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
-     *         description="ID of the product status", 
+     *         description="ID of the product status",
      *         required=true,
      *         @OA\Schema(type="integer", format="int64")
      *     ),
      *     @OA\Response(
      *         response=204,
-     *         description="ProductStatus deleted successfully" 
+     *         description="ProductStatus deleted successfully"
      *     )
      * )
      */
@@ -227,7 +227,7 @@ class ProductStatusController extends ErpBaseController
             $productStatus->delete();
 
             return response()->json(['message' => 'ProductStatus deleted successfully'], 200); 
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return response()->json(['message' => 'Failed to delete product status'], 500); 
         }
     }

@@ -2,6 +2,8 @@
 
 namespace Faxt\Invenbin\Http\Controllers\Api;
 
+use Throwable;
+use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 use Illuminate\Auth\AuthManager;
 use App\Http\Controllers\Controller;
@@ -47,7 +49,7 @@ class InventoryController extends ErpBaseController
      * )
      * Display a listing of the inventory levels for all products.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index()
     {
@@ -100,7 +102,7 @@ class InventoryController extends ErpBaseController
      * Display the inventory level for a specific product.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function show($id)
     {
@@ -112,7 +114,7 @@ class InventoryController extends ErpBaseController
         // Return JSON response with inventory data for the specific product
         return response()->json($product);
         }
-        catch(\Throwable $e){
+        catch(Throwable $e){
             return response()->json(['error' => 'Product not found.'], 404);
         } 
        
@@ -163,16 +165,16 @@ class InventoryController extends ErpBaseController
      *         )
      *     )
      * )
-     * 
-     * It is convention that the update number received is an adjustment amount, 
-     * not an inventory count. adjust the inventory based on the incoming value and the adjustment_type (+ or -).
-     *  as part of this code, check reorder levels 
-     * and send notifications if any defined should the reorder point be reached
-    * Update the inventory level for a specific product.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * It is convention that the update number received is an adjustment amount,
+     * not an inventory count. adjust the inventory based on the incoming value and the adjustment_type (+ or -).
+     *  as part of this code, check reorder levels
+     * and send notifications if any defined should the reorder point be reached
+     * Update the inventory level for a specific product.
+     *
+     * @param Request $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function update(Request $request, $id)
     {
@@ -256,7 +258,7 @@ class InventoryController extends ErpBaseController
      *          @OA\JsonContent(
      *             required={"reorder_point"},
      *             @OA\Property(property="reorder_point", type="integer"),
-    *         )
+     *         )
      *      ),
      *      @OA\Response(
      *          response=200,
@@ -275,9 +277,9 @@ class InventoryController extends ErpBaseController
      *      )
      * )
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function setReorderPoint(Request $request, $id)
     {

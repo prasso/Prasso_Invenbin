@@ -2,6 +2,14 @@
 
 namespace Faxt\Invenbin;
 
+use Closure;
+use Faxt\Invenbin\Filament\Resources\ErpBillOfMaterialResource;
+use Faxt\Invenbin\Filament\Resources\ErpCategoryResource;
+use Faxt\Invenbin\Filament\Resources\ErpProductResource;
+use Faxt\Invenbin\Filament\Resources\ErpProductStatusResource;
+use Faxt\Invenbin\Filament\Resources\ErpProductTypeResource;
+use Faxt\Invenbin\Filament\Resources\ErpProductUsageLogResource;
+use Faxt\Invenbin\Filament\Resources\ErpUnitOfMeasureResource;
 use Filament\Facades\Filament;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -27,20 +35,20 @@ use Illuminate\Support\Facades\Log;
 
 class InvenbinPanelManager
 {
-    protected ?\Closure $closure = null;
+    protected ?Closure $closure = null;
 
     protected array $extensions = [];
 
     protected string $panelId = 'admin';
 
     protected static $invenbin_resources = [
-        Resources\ErpBillOfMaterialResource::class,
-        Resources\ErpCategoryResource::class,
-        Resources\ErpProductResource::class,
-        Resources\ErpProductStatusResource::class,
-        Resources\ErpProductTypeResource::class,
-        Resources\ErpProductUsageLogResource::class,
-        Resources\ErpUnitOfMeasureResource::class,
+        ErpBillOfMaterialResource::class,
+        ErpCategoryResource::class,
+        ErpProductResource::class,
+        ErpProductStatusResource::class,
+        ErpProductTypeResource::class,
+        ErpProductUsageLogResource::class,
+        ErpUnitOfMeasureResource::class,
 
     ];
 
@@ -56,7 +64,7 @@ class InvenbinPanelManager
         
         $panel = $this->defaultPanel();
         
-        if ($this->closure instanceof \Closure) {
+        if ($this->closure instanceof Closure) {
             $fn = $this->closure;
             $panel = $fn($panel);
         }
@@ -81,7 +89,7 @@ class InvenbinPanelManager
         return $this;
     }
 
-    public function panel(\Closure $closure): self
+    public function panel(Closure $closure): self
     {
         $this->closure = $closure;
 

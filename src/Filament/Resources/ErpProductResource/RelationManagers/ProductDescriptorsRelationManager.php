@@ -2,8 +2,17 @@
 
 namespace Faxt\Invenbin\Filament\Resources\ErpProductResource\RelationManagers;
 
+use Filament\Schemas\Schema;
+use Filament\Forms\Components\Hidden;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\CheckBox;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Actions\CreateAction;
+use Filament\Actions\EditAction;
+use Filament\Actions\DeleteAction;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteBulkAction;
 use Filament\Forms;
-use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -15,17 +24,17 @@ class ProductDescriptorsRelationManager extends RelationManager
 {
     protected static string $relationship = 'descriptors';
 
-    public function form(Form $form): Form
+    public function form(Schema $schema): Schema
     {
-        return $form
+        return $schema
             
-                ->schema([
-                    Components\Hidden::make('id'),
-                    Components\Hidden::make('erp_product_id'),
-                    Components\TextInput::make('title'),
-                    Components\TextInput::make('descriptor'),
-                    Components\CheckBox::make('is_bulleted_list'),
-                    Components\TextInput::make('list_order'),
+                ->components([
+                    Hidden::make('id'),
+                    Hidden::make('erp_product_id'),
+                    TextInput::make('title'),
+                    TextInput::make('descriptor'),
+                    CheckBox::make('is_bulleted_list'),
+                    TextInput::make('list_order'),
                 ])
            ;
     }
@@ -35,21 +44,21 @@ class ProductDescriptorsRelationManager extends RelationManager
         return $table
             ->recordTitleAttribute('Title')
             ->columns([
-                Tables\Columns\TextColumn::make('title'),
+                TextColumn::make('title'),
             ])
             ->filters([
                 //
             ])
             ->headerActions([
-                Tables\Actions\CreateAction::make(),
+                CreateAction::make(),
             ])
-            ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+            ->recordActions([
+                EditAction::make(),
+                DeleteAction::make(),
             ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+            ->toolbarActions([
+                BulkActionGroup::make([
+                    DeleteBulkAction::make(),
                 ]),
             ]);
     }

@@ -2,6 +2,8 @@
 
 namespace Faxt\Invenbin\Http\Controllers\Api;
 
+use Exception;
+use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 use Illuminate\Auth\AuthManager;
 use App\Http\Controllers\Controller;
@@ -30,11 +32,11 @@ class ProductController extends ErpBaseController
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      * @OA\Get(
      *     path="/api/products",
      *     tags={"Products"},
-     *     summary="Get all products",     
+     *     summary="Get all products",    
      *     description="Retrieve a list of product records with eager loading of products relationship",
      *     security={{"bearer_token":{}}},
      *     @OA\Response(
@@ -62,34 +64,34 @@ class ProductController extends ErpBaseController
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     * 
-    * @OA\Post(
-    *     path="/api/products",
-    *     tags={"Products"},
-    *     summary="Create a new product",
-    *     description="Create a new product",
-    *     security={{"bearer_token":{}}},
-    *     @OA\RequestBody(
-    *         required=true,
-    *         @OA\JsonContent(ref="#/components/schemas/ProductInput")
-    *     ),
-    *     @OA\Response(
-    *         response=200,
-    *         description="Successful operation",
-    *         @OA\JsonContent(ref="#/components/schemas/ProductOutput")
-    *     ),
-    *     @OA\Response(
-    *         response=422,
-    *         description="Validation error",
-    *         @OA\JsonContent(
-    *             type="object",
-    *             @OA\Property(property="message", type="string", example="The given data was invalid."),
-    *             @OA\Property(property="errors", type="object")
-    *         )
-    *     )
-    * )
+     * @param Request $request
+     * @return Response
+     *
+     * @OA\Post(
+     *     path="/api/products",
+     *     tags={"Products"},
+     *     summary="Create a new product",
+     *     description="Create a new product",
+     *     security={{"bearer_token":{}}},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(ref="#/components/schemas/ProductInput")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *         @OA\JsonContent(ref="#/components/schemas/ProductOutput")
+     *     ),
+     *     @OA\Response(
+     *         response=422,
+     *         description="Validation error",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="message", type="string", example="The given data was invalid."),
+     *             @OA\Property(property="errors", type="object")
+     *         )
+     *     )
+     * )
      */
     public function store(Request $request)
     { 
@@ -113,7 +115,7 @@ class ProductController extends ErpBaseController
     } catch (ValidationException $validationException) {
         // Return validation errors as JSON
         return response()->json(['The given data was invalid. ' => $validationException->errors()], 422);
-    } catch (\Exception $exception) {
+    } catch (Exception $exception) {
         Log::info($exception);
         // Return an error message if the process fails
         return response()->json(['error' => 'Process failed, check the guid'], 500);
@@ -122,30 +124,30 @@ class ProductController extends ErpBaseController
 
     /**
      * Store a newly created resource in storage.
-     * The model is Component and the Component is only stored in the ErpComponent table if a 
-     * Bill of Materials id is passed.  If no Bill of Materials, no component table record. 
+     * The model is Component and the Component is only stored in the ErpComponent table if a
+     * Bill of Materials id is passed.  If no Bill of Materials, no component table record.
      * However, in both cases, our component will be stored as an ErpProduct record.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     * 
-    * @OA\Post(
-    *     path="/api/products/components",
-    *     tags={"Products"},
-    *     summary="Create a new product and component if bom id passed",
-    *     description="Create a new product and component if bom id passed",
-    *     security={{"bearer_token":{}}},
-    *     @OA\RequestBody(
-    *         required=true,
-    *         @OA\JsonContent(ref="#/components/schemas/ProductComponentInput")
-    *     ),
-    *     @OA\Response(
-    *         response=200,
-    *         description="Successful operation",
-    *         @OA\JsonContent(ref="#/components/schemas/ProductOutput")
-    *     )
-    * )
-    */
+     * @param Request $request
+     * @return Response
+     *
+     * @OA\Post(
+     *     path="/api/products/components",
+     *     tags={"Products"},
+     *     summary="Create a new product and component if bom id passed",
+     *     description="Create a new product and component if bom id passed",
+     *     security={{"bearer_token":{}}},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(ref="#/components/schemas/ProductComponentInput")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *         @OA\JsonContent(ref="#/components/schemas/ProductOutput")
+     *     )
+     * )
+     */
     public function createProductOfComponentType(Request $request)
     {
 
@@ -173,8 +175,8 @@ class ProductController extends ErpBaseController
      * Display the specified resource.
      *
      * @param  string $guid
-     * @return \Illuminate\Http\Response
-     * 
+     * @return Response
+     *
      * @OA\Get(
      *     path="/api/products/{guid}",
      *     tags={"Products"},
@@ -214,34 +216,34 @@ class ProductController extends ErpBaseController
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @param  string $guid
-     * @return \Illuminate\Http\Response
+     * @return Response
      * @OA\Put(
-    *     path="/api/products/{guid}",
-    *     tags={"Products"},
-    *     summary="Update a product",
-    *     description="Update a product",
-    *     security={{"bearer_token":{}}},
-    *     @OA\Parameter(
-    *         name="guid",
-    *         in="path",
-    *         description="GUID of the product",
-    *         required=true,
-    *         @OA\Schema(
-    *             type="string"
-    *         )
-    *     ),
-    *     @OA\RequestBody(
-    *         required=true,
-    *         @OA\JsonContent(ref="#/components/schemas/ProductInput")
-    *     ),
-    *     @OA\Response(
-    *         response=200,
-    *         description="Successful operation",
-    *         @OA\JsonContent(ref="#/components/schemas/ProductOutput")
-    *     )
-    * )
+     *     path="/api/products/{guid}",
+     *     tags={"Products"},
+     *     summary="Update a product",
+     *     description="Update a product",
+     *     security={{"bearer_token":{}}},
+     *     @OA\Parameter(
+     *         name="guid",
+     *         in="path",
+     *         description="GUID of the product",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string"
+     *         )
+     *     ),
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(ref="#/components/schemas/ProductInput")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *         @OA\JsonContent(ref="#/components/schemas/ProductOutput")
+     *     )
+     * )
      */
     public function update(Request $request, string $guid)
     {
@@ -267,7 +269,7 @@ class ProductController extends ErpBaseController
         } 
         catch (ModelNotFoundException $exception) {
             return response()->json(['message' => 'Product not found'], 404);
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             // Log the exception for further investigation
             Log::error($exception);
             // Return a generic error message
@@ -280,7 +282,7 @@ class ProductController extends ErpBaseController
      * Remove the specified resource from storage.
      *
      * @param  string $guid
-     * @return \Illuminate\Http\Response
+     * @return Response
      * @OA\Delete(
      *     path="/api/products/{guid}",
      *     tags={"Products"},
@@ -320,7 +322,7 @@ class ProductController extends ErpBaseController
             $product->delete();
     
             return response()->json(['message' => 'Product deleted successfully'], 200);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return response()->json(['message' => 'Failed to delete product: ' . $e->getMessage()], 500);
         }
     }

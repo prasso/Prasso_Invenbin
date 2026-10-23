@@ -2,6 +2,9 @@
 
 namespace Faxt\Invenbin\Models;
 
+use Auth;
+use App\Models\User;
+use DateTime;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Concerns\HasTimestamps;
 use Illuminate\Database\Eloquent\Model;
@@ -51,7 +54,7 @@ class ErpBaseModel extends Model
        
             if (Schema::connection("mysql")->hasColumn($model->getTable(),'updated_by'))
             {
-                $user = \Auth::user();
+                $user = Auth::user();
                 if (!$user){
                     throw ValidationException::withMessages([
                         'user' => [('Saving - failed. User is not authorized.')],
@@ -88,7 +91,7 @@ class ErpBaseModel extends Model
     public function updatedBy(): ?BelongsTo
     {
         if (Schema::connection('mysql')->hasColumn($this->getTable(), 'updated_by')) {
-            $userModel = config('invenbin.user_model', \App\Models\User::class);
+            $userModel = config('invenbin.user_model', User::class);
             return $this->belongsTo($userModel, 'updated_by');
         }
     
@@ -206,7 +209,7 @@ protected function formatDate($value)
     }
     
     // Create the date object
-    $date = \DateTime::createFromFormat($dateFormat, "$day/$month/$year");
+    $date = DateTime::createFromFormat($dateFormat, "$day/$month/$year");
     // Format and return the date
     return $date->format('Y/m/d');
 }

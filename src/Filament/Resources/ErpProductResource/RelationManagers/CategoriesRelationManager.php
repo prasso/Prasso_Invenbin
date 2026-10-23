@@ -2,8 +2,15 @@
 
 namespace Faxt\Invenbin\Filament\Resources\ErpProductResource\RelationManagers;
 
+use Filament\Schemas\Schema;
+use Filament\Forms\Components\TextInput;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Actions\CreateAction;
+use Filament\Actions\EditAction;
+use Filament\Actions\DeleteAction;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteBulkAction;
 use Filament\Forms;
-use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -14,11 +21,11 @@ class CategoriesRelationManager extends RelationManager
 {
     protected static string $relationship = 'categories';
 
-    public function form(Form $form): Form
+    public function form(Schema $schema): Schema
     {
-        return $form
-            ->schema([
-                Forms\Components\TextInput::make('erp_category_id')
+        return $schema
+            ->components([
+                TextInput::make('erp_category_id')
                     ->required()
                     ->maxLength(255),
             ]);
@@ -29,21 +36,21 @@ class CategoriesRelationManager extends RelationManager
         return $table
             ->recordTitleAttribute('Category')
             ->columns([
-                Tables\Columns\TextColumn::make('erp_category_id'),
+                TextColumn::make('erp_category_id'),
             ])
             ->filters([
                 //
             ])
             ->headerActions([
-                Tables\Actions\CreateAction::make(),
+                CreateAction::make(),
             ])
-            ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+            ->recordActions([
+                EditAction::make(),
+                DeleteAction::make(),
             ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+            ->toolbarActions([
+                BulkActionGroup::make([
+                    DeleteBulkAction::make(),
                 ]),
             ]);
     }

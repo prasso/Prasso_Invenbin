@@ -2,6 +2,8 @@
 
 namespace Faxt\Invenbin\Http\Controllers\Api;
 
+use Auth;
+use Illuminate\Http\Response;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -87,7 +89,7 @@ class ErpBaseController extends Controller
 
             if ($this->user != null) 
             {
-                \Auth::login($this->user); 
+                Auth::login($this->user); 
             }
         } else{
             Log::info('no access token found for request');
@@ -108,7 +110,7 @@ class ErpBaseController extends Controller
      /**
      * success response method.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function sendResponse($result, $message)
     {
@@ -124,7 +126,7 @@ class ErpBaseController extends Controller
     /**
      * return error response.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function sendError($error, $errorMessages = [], $code = 400)
     {

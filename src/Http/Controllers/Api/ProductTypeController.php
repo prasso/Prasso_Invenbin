@@ -2,6 +2,8 @@
 
 namespace Faxt\Invenbin\Http\Controllers\Api;
 
+use Exception;
+use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 use Illuminate\Auth\AuthManager;
 use App\Http\Controllers\Controller;
@@ -26,11 +28,11 @@ class ProductTypeController extends ErpBaseController
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      * @OA\Get(
-     *     path="/api/product-types", 
-     *     tags={"ProductTypes"}, 
-     *     summary="Get all product types", 
+     *     path="/api/product-types",
+     *     tags={"ProductTypes"},
+     *     summary="Get all product types",
      *     description="Retrieve a list of product types records with eager loading of products relationship",
      *     security={{"bearer_token":{}}},
      *     @OA\Response(
@@ -57,24 +59,24 @@ class ProductTypeController extends ErpBaseController
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-    * @OA\Post(
-    *     path="/api/product-types", 
-    *     tags={"ProductTypes"}, 
-    *     summary="Create a new product type", 
-    *     description="Create a new product type",
-    *     security={{"bearer_token":{}}},
-    *     @OA\RequestBody(
-    *         required=true,
-    *         @OA\JsonContent(ref="#/components/schemas/ProductTypeInputOutput") 
-    *     ),
-    *     @OA\Response(
-    *         response=200,
-    *         description="Successful operation",
-    *         @OA\JsonContent(ref="#/components/schemas/ProductTypeInputOutput") 
-    *     )
-    * )
+     * @param Request $request
+     * @return Response
+     * @OA\Post(
+     *     path="/api/product-types",
+     *     tags={"ProductTypes"},
+     *     summary="Create a new product type",
+     *     description="Create a new product type",
+     *     security={{"bearer_token":{}}},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(ref="#/components/schemas/ProductTypeInputOutput")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *         @OA\JsonContent(ref="#/components/schemas/ProductTypeInputOutput")
+     *     )
+     * )
      */
     public function store(Request $request)
     {
@@ -95,23 +97,23 @@ class ProductTypeController extends ErpBaseController
      * Display the specified resource.
      *
      * @param  string $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      * @OA\Get(
-     *     path="/api/product-types/{id}", 
-     *     tags={"ProductTypes"}, 
-     *     summary="Get a specific product type", 
+     *     path="/api/product-types/{id}",
+     *     tags={"ProductTypes"},
+     *     summary="Get a specific product type",
      *     security={{"bearer_token":{}}},
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
-     *         description="id of the product type", 
+     *         description="id of the product type",
      *         required=true,
-      *          @OA\Schema(type="integer", format="int64")
+     *          @OA\Schema(type="integer", format="int64")
      *     ),
      *     @OA\Response(
      *         response=200,
      *         description="Successful operation",
-     *         @OA\JsonContent(ref="#/components/schemas/ProductTypeInputOutput") 
+     *         @OA\JsonContent(ref="#/components/schemas/ProductTypeInputOutput")
      *         )
      *     )
      * )
@@ -136,32 +138,32 @@ class ProductTypeController extends ErpBaseController
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @param  string $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      * @OA\Put(
-    *     path="/api/product-types/{id}", 
-    *     tags={"ProductTypes"}, 
-    *     summary="Update a product type", 
-    *     description="Update a product type",
-    *     security={{"bearer_token":{}}},
-    *     @OA\Parameter(
-    *         name="id",
-    *         in="path",
-    *         description="id of the product type", 
-    *         required=true,
+     *     path="/api/product-types/{id}",
+     *     tags={"ProductTypes"},
+     *     summary="Update a product type",
+     *     description="Update a product type",
+     *     security={{"bearer_token":{}}},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="id of the product type",
+     *         required=true,
      *          @OA\Schema(type="integer", format="int64")
-    *     ),
-    *     @OA\RequestBody(
-    *         required=true,
-    *         @OA\JsonContent(ref="#/components/schemas/ProductTypeInputOutput") 
-    *     ),
-    *     @OA\Response(
-    *         response=200,
-    *         description="Successful operation",
-    *         @OA\JsonContent(ref="#/components/schemas/ProductTypeInputOutput") 
-    *     )
-    * )
+     *     ),
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(ref="#/components/schemas/ProductTypeInputOutput")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *         @OA\JsonContent(ref="#/components/schemas/ProductTypeInputOutput")
+     *     )
+     * )
      */
     public function update(Request $request, string $id)
     {
@@ -185,7 +187,7 @@ class ProductTypeController extends ErpBaseController
         } 
         catch (ModelNotFoundException $exception) {
             return response()->json(['message' => 'ProductType not found'], 404); 
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             // Log the exception for further investigation
             Log::error($exception);
             // Return a generic error message
@@ -198,22 +200,22 @@ class ProductTypeController extends ErpBaseController
      * Remove the specified resource from storage.
      *
      * @param  string $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      * @OA\Delete(
-     *     path="/api/product-types/{id}", 
-     *     tags={"ProductTypes"}, 
-     *     summary="Delete a product type", 
+     *     path="/api/product-types/{id}",
+     *     tags={"ProductTypes"},
+     *     summary="Delete a product type",
      *     security={{"bearer_token":{}}},
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
-     *         description="ID of the product type", 
+     *         description="ID of the product type",
      *         required=true,
-      *          @OA\Schema(type="integer", format="int64")
+     *          @OA\Schema(type="integer", format="int64")
      *     ),
      *     @OA\Response(
      *         response=204,
-     *         description="ProductType deleted successfully" 
+     *         description="ProductType deleted successfully"
      *     )
      * )
      */
@@ -230,7 +232,7 @@ class ProductTypeController extends ErpBaseController
             $productType->delete();
 
             return response()->json(['message' => 'ProductType deleted successfully'], 200); 
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return response()->json(['message' => 'Failed to delete product type'], 500); 
         }
     }

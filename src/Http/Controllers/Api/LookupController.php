@@ -3,6 +3,7 @@
 namespace Faxt\Invenbin\Http\Controllers\Api;
 
 
+use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
 use Faxt\Invenbin\Models\ErpCategory;
 use Faxt\Invenbin\Models\ErpUnitOfMeasure;
@@ -15,8 +16,8 @@ class LookupController extends ErpBaseController
     /**
      * Return a list of categories.
      *
-     * @return \Illuminate\Http\JsonResponse
-     * 
+     * @return JsonResponse
+     *
      * @OA\Get(
      *     path="/api/lookups/categories",
      *     summary="Get list of categories",
@@ -44,7 +45,7 @@ class LookupController extends ErpBaseController
     /**
      * Return a list of units of measure.
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      *
      * @OA\Get(
      *     path="/api/lookups/units-of-measure",
@@ -73,8 +74,8 @@ class LookupController extends ErpBaseController
     /**
      * Return a list of dimension units.
      *
-     * @return \Illuminate\Http\JsonResponse
-     * 
+     * @return JsonResponse
+     *
      * @OA\Get(
      *     path="/api/lookups/dimension-units",
      *     summary="Get list of dimension units",

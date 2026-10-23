@@ -2,6 +2,8 @@
 
 namespace Faxt\Invenbin\Http\Controllers\Api;
 
+use Exception;
+use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Faxt\Invenbin\Models\ErpBillOfMaterials; 
@@ -14,11 +16,11 @@ class BillOfMaterialsController extends ErpBaseController
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      * @OA\Get(
-     *     path="/api/bom", 
-     *     tags={"BillOfMaterials"}, 
-     *     summary="Get all bills of material", 
+     *     path="/api/bom",
+     *     tags={"BillOfMaterials"},
+     *     summary="Get all bills of material",
      *     description="Retrieve a list of bills of material records with eager loading of products relationship",
      *     security={{"bearer_token":{}}},
      *     @OA\Response(
@@ -46,24 +48,24 @@ class BillOfMaterialsController extends ErpBaseController
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-    * @OA\Post(
-    *     path="/api/bom", 
-    *     tags={"BillOfMaterials"}, 
-    *     summary="Create a new bill of material", 
-    *     description="Create a new bill of material",
-    *     security={{"bearer_token":{}}},
-    *     @OA\RequestBody(
-    *         required=true,
-    *         @OA\JsonContent(ref="#/components/schemas/BillOfMaterialsInput") 
-    *     ),
-    *     @OA\Response(
-    *         response=200,
-    *         description="Successful operation",
-    *         @OA\JsonContent(ref="#/components/schemas/BillOfMaterialsOutput") 
-    *     )
-    * )
+     * @param Request $request
+     * @return Response
+     * @OA\Post(
+     *     path="/api/bom",
+     *     tags={"BillOfMaterials"},
+     *     summary="Create a new bill of material",
+     *     description="Create a new bill of material",
+     *     security={{"bearer_token":{}}},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(ref="#/components/schemas/BillOfMaterialsInput")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *         @OA\JsonContent(ref="#/components/schemas/BillOfMaterialsOutput")
+     *     )
+     * )
      */
     public function store(Request $request)
     {
@@ -86,16 +88,16 @@ class BillOfMaterialsController extends ErpBaseController
      * Display the specified resource.
      *
      * @param  string $guid
-     * @return \Illuminate\Http\Response
+     * @return Response
      * @OA\Get(
-     *     path="/api/bom/{guid}", 
-     *     tags={"BillOfMaterials"}, 
-     *     summary="Get a specific bill of material", 
+     *     path="/api/bom/{guid}",
+     *     tags={"BillOfMaterials"},
+     *     summary="Get a specific bill of material",
      *     security={{"bearer_token":{}}},
      *     @OA\Parameter(
      *         name="guid",
      *         in="path",
-     *         description="GUID of the bill of material", 
+     *         description="GUID of the bill of material",
      *         required=true,
      *         @OA\Schema(
      *             type="string"
@@ -104,7 +106,7 @@ class BillOfMaterialsController extends ErpBaseController
      *     @OA\Response(
      *         response=200,
      *         description="Successful operation",
-     *         @OA\JsonContent(ref="#/components/schemas/BillOfMaterialsOutput") 
+     *         @OA\JsonContent(ref="#/components/schemas/BillOfMaterialsOutput")
      *         )
      *     )
      * )
@@ -129,34 +131,34 @@ class BillOfMaterialsController extends ErpBaseController
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @param  string $guid
-     * @return \Illuminate\Http\Response
+     * @return Response
      * @OA\Put(
-    *     path="/api/bom/{guid}", 
-    *     tags={"BillOfMaterials"}, 
-    *     summary="Update a bill of material", 
-    *     description="Update a bill of material",
-    *     security={{"bearer_token":{}}},
-    *     @OA\Parameter(
-    *         name="guid",
-    *         in="path",
-    *         description="GUID of the bill of material", 
-    *         required=true,
-    *         @OA\Schema(
-    *             type="string"
-    *         )
-    *     ),
-    *     @OA\RequestBody(
-    *         required=true,
-    *         @OA\JsonContent(ref="#/components/schemas/BillOfMaterialsInput") 
-    *     ),
-    *     @OA\Response(
-    *         response=200,
-    *         description="Successful operation",
-    *         @OA\JsonContent(ref="#/components/schemas/BillOfMaterialsOutput") 
-    *     )
-    * )
+     *     path="/api/bom/{guid}",
+     *     tags={"BillOfMaterials"},
+     *     summary="Update a bill of material",
+     *     description="Update a bill of material",
+     *     security={{"bearer_token":{}}},
+     *     @OA\Parameter(
+     *         name="guid",
+     *         in="path",
+     *         description="GUID of the bill of material",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string"
+     *         )
+     *     ),
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(ref="#/components/schemas/BillOfMaterialsInput")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *         @OA\JsonContent(ref="#/components/schemas/BillOfMaterialsOutput")
+     *     )
+     * )
      */
     public function update(Request $request, string $guid)
     {
@@ -180,7 +182,7 @@ class BillOfMaterialsController extends ErpBaseController
         } 
         catch (ModelNotFoundException $exception) {
             return response()->json(['message' => 'BillOfMaterials not found'], 404); 
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             // Log the exception for further investigation
             Log::error($exception);
             // Return a generic error message
@@ -193,16 +195,16 @@ class BillOfMaterialsController extends ErpBaseController
      * Remove the specified resource from storage.
      *
      * @param  string $guid
-     * @return \Illuminate\Http\Response
+     * @return Response
      * @OA\Delete(
-     *     path="/api/bom/{guid}", 
-     *     tags={"BillOfMaterials"}, 
-     *     summary="Delete a bill of material", 
+     *     path="/api/bom/{guid}",
+     *     tags={"BillOfMaterials"},
+     *     summary="Delete a bill of material",
      *     security={{"bearer_token":{}}},
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
-     *         description="ID of the bill of material", 
+     *         description="ID of the bill of material",
      *         required=true,
      *         @OA\Schema(
      *             type="string"
@@ -210,7 +212,7 @@ class BillOfMaterialsController extends ErpBaseController
      *     ),
      *     @OA\Response(
      *         response=204,
-     *         description="BillOfMaterials deleted successfully" 
+     *         description="BillOfMaterials deleted successfully"
      *     )
      * )
      */
@@ -228,7 +230,7 @@ class BillOfMaterialsController extends ErpBaseController
             $billOfMaterials->delete();
 
             return response()->json(['message' => 'BillOfMaterials deleted successfully'], 200); 
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return response()->json(['message' => 'Failed to delete bill of material'], 500); 
         }
     }

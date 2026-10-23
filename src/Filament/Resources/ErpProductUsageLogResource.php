@@ -2,11 +2,23 @@
 
 namespace Faxt\Invenbin\Filament\Resources;
 
+use Filament\Schemas\Schema;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\TrashedFilter;
+use Filament\Actions\EditAction;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteBulkAction;
+use Filament\Actions\ForceDeleteBulkAction;
+use Filament\Actions\RestoreBulkAction;
+use Faxt\Invenbin\Filament\Resources\ErpProductUsageLogResource\Pages\ListErpProductUsageLogs;
+use Faxt\Invenbin\Filament\Resources\ErpProductUsageLogResource\Pages\CreateErpProductUsageLog;
+use Faxt\Invenbin\Filament\Resources\ErpProductUsageLogResource\Pages\EditErpProductUsageLog;
 use Faxt\Invenbin\Filament\Resources\ErpProductUsageLogResource\Pages;
 use Faxt\Invenbin\Filament\Resources\ErpProductUsageLogResource\RelationManagers;
 use Faxt\Invenbin\Models\ErpProductUsageLog;
 use Filament\Forms;
-use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -17,18 +29,18 @@ class ErpProductUsageLogResource extends Resource
 {
     protected static ?string $model = ErpProductUsageLog::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-rectangle-stack';
 
 
-    public static function form(Form $form): Form
+    public static function form(Schema $schema): Schema
     {
-        return $form
-            ->schema([
-                Forms\Components\Select::make('updated_by')
+        return $schema
+            ->components([
+                Select::make('updated_by')
                     ->relationship('updatedBy', 'id'),
-                Forms\Components\TextInput::make('product_used_on'),
-                Forms\Components\TextInput::make('adjustment'),
-                Forms\Components\Select::make('product_id')
+                TextInput::make('product_used_on'),
+                TextInput::make('adjustment'),
+                Select::make('product_id')
                     ->relationship('product', 'id')
             ]);
     }
@@ -37,22 +49,22 @@ class ErpProductUsageLogResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('user_updated.id'),
-                Tables\Columns\TextColumn::make('product_used_on'),
-                Tables\Columns\TextColumn::make('adjustment'),
-                Tables\Columns\TextColumn::make('products.id')
+                TextColumn::make('user_updated.id'),
+                TextColumn::make('product_used_on'),
+                TextColumn::make('adjustment'),
+                TextColumn::make('products.id')
             ])
             ->filters([
-                Tables\Filters\TrashedFilter::make(),
+                TrashedFilter::make(),
             ])
-            ->actions([
-                Tables\Actions\EditAction::make(),
+            ->recordActions([
+                EditAction::make(),
             ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                    Tables\Actions\ForceDeleteBulkAction::make(),
-                    Tables\Actions\RestoreBulkAction::make(),
+            ->toolbarActions([
+                BulkActionGroup::make([
+                    DeleteBulkAction::make(),
+                    ForceDeleteBulkAction::make(),
+                    RestoreBulkAction::make(),
                 ]),
             ]);
     }
@@ -67,9 +79,9 @@ class ErpProductUsageLogResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListErpProductUsageLogs::route('/'),
-            'create' => Pages\CreateErpProductUsageLog::route('/create'),
-            'edit' => Pages\EditErpProductUsageLog::route('/{record}/edit'),
+            'index' => ListErpProductUsageLogs::route('/'),
+            'create' => CreateErpProductUsageLog::route('/create'),
+            'edit' => EditErpProductUsageLog::route('/{record}/edit'),
         ];
     }
 

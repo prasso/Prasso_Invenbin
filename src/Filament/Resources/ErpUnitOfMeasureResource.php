@@ -2,11 +2,20 @@
 
 namespace Faxt\Invenbin\Filament\Resources;
 
+use Filament\Schemas\Schema;
+use Filament\Forms\Components\Hidden;
+use Filament\Forms\Components\TextInput;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Actions\EditAction;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteBulkAction;
+use Faxt\Invenbin\Filament\Resources\ErpUnitOfMeasureResource\Pages\ListErpUnitOfMeasures;
+use Faxt\Invenbin\Filament\Resources\ErpUnitOfMeasureResource\Pages\CreateErpUnitOfMeasure;
+use Faxt\Invenbin\Filament\Resources\ErpUnitOfMeasureResource\Pages\EditErpUnitOfMeasure;
 use Faxt\Invenbin\Filament\Resources\ErpUnitOfMeasureResource\Pages;
 use Faxt\Invenbin\Filament\Resources\ErpUnitOfMeasureResource\RelationManagers;
 use Faxt\Invenbin\Models\ErpUnitOfMeasure;
 use Filament\Forms;
-use Filament\Forms\Form;
 use Filament\Forms\Components;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -21,15 +30,15 @@ class ErpUnitOfMeasureResource extends Resource
 
     public static $routePrefix = 'erp-unit-of-measure'; // Define your custom route prefix
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-rectangle-stack';
 
-    public static function form(Form $form): Form
+    public static function form(Schema $schema): Schema
     {
-        return $form
-            ->schema([
-                Components\Hidden::make('id'),
-                Components\TextInput::make('name'),
-                Components\TextInput::make('symbol'),
+        return $schema
+            ->components([
+                Hidden::make('id'),
+                TextInput::make('name'),
+                TextInput::make('symbol'),
             ]);
     }
 
@@ -37,21 +46,21 @@ class ErpUnitOfMeasureResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name'),
-                Tables\Columns\TextColumn::make('symbol'),
-                Tables\Columns\TextColumn::make('updated_at'),
-                Tables\Columns\TextColumn::make('edit'),
+                TextColumn::make('name'),
+                TextColumn::make('symbol'),
+                TextColumn::make('updated_at'),
+                TextColumn::make('edit'),
             ])
             
             ->filters([
                 //
             ])
-            ->actions([
-                Tables\Actions\EditAction::make(),
+            ->recordActions([
+                EditAction::make(),
             ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+            ->toolbarActions([
+                BulkActionGroup::make([
+                    DeleteBulkAction::make(),
                 ]),
             ]);
     }
@@ -66,9 +75,9 @@ class ErpUnitOfMeasureResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListErpUnitOfMeasures::route('/'),
-            'create' => Pages\CreateErpUnitOfMeasure::route('/create'),
-            'edit' => Pages\EditErpUnitOfMeasure::route('/{record}/edit'),
+            'index' => ListErpUnitOfMeasures::route('/'),
+            'create' => CreateErpUnitOfMeasure::route('/create'),
+            'edit' => EditErpUnitOfMeasure::route('/{record}/edit'),
         ];
     }
 }

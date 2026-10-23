@@ -2,6 +2,7 @@
 
 namespace Faxt\Invenbin\Services;
 
+use Faxt\Invenbin\Models\ErpProduct;
 use App\Models\Site;
 use App\Models\User;
 use Carbon\Carbon;
@@ -127,7 +128,7 @@ class InvenbinDashboardService
             return collect();
         }
 
-        $products = \Faxt\Invenbin\Models\ErpProduct::whereIn('id', $pivotMap->values())
+        $products = ErpProduct::whereIn('id', $pivotMap->values())
             ->get()
             ->keyBy('id');
 

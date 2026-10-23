@@ -2,6 +2,8 @@
 
 namespace Faxt\Invenbin\Http\Controllers\Api;
 
+use Exception;
+use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Faxt\Invenbin\Models\ErpCategory;
@@ -20,11 +22,11 @@ class CategoryController extends ErpBaseController
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      * @OA\Get(
      *     path="/api/categories",
      *     tags={"Categories"},
-     *     summary="Get all categories",     
+     *     summary="Get all categories",    
      *     description="Retrieve a list of categories records with eager loading of products relationship",
      *     security={{"bearer_token":{}}},
      *     @OA\Response(
@@ -51,24 +53,24 @@ class CategoryController extends ErpBaseController
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-    * @OA\Post(
-    *     path="/api/categories",
-    *     tags={"Categories"},
-    *     summary="Create a new category",
-    *     description="Create a new category",
-    *     security={{"bearer_token":{}}},
-    *     @OA\RequestBody(
-    *         required=true,
-    *         @OA\JsonContent(ref="#/components/schemas/CategoryInput")
-    *     ),
-    *     @OA\Response(
-    *         response=200,
-    *         description="Successful operation",
-    *         @OA\JsonContent(ref="#/components/schemas/CategoryOutput")
-    *     )
-    * )
+     * @param Request $request
+     * @return Response
+     * @OA\Post(
+     *     path="/api/categories",
+     *     tags={"Categories"},
+     *     summary="Create a new category",
+     *     description="Create a new category",
+     *     security={{"bearer_token":{}}},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(ref="#/components/schemas/CategoryInput")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *         @OA\JsonContent(ref="#/components/schemas/CategoryOutput")
+     *     )
+     * )
      */
     public function store(Request $request)
     {
@@ -90,7 +92,7 @@ class CategoryController extends ErpBaseController
      * Display the specified resource.
      *
      * @param  string $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      * @OA\Get(
      *     path="/api/categories/{id}",
      *     tags={"Categories"},
@@ -131,32 +133,32 @@ class CategoryController extends ErpBaseController
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @param  string $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      * @OA\Put(
-    *     path="/api/categories/{id}",
-    *     tags={"Categories"},
-    *     summary="Update a category",
-    *     description="Update a category",
-    *     security={{"bearer_token":{}}},
-    *     @OA\Parameter(
-    *         name="id",
-    *         in="path",
-    *         description="ID of the category",
-    *         required=true,
+     *     path="/api/categories/{id}",
+     *     tags={"Categories"},
+     *     summary="Update a category",
+     *     description="Update a category",
+     *     security={{"bearer_token":{}}},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="ID of the category",
+     *         required=true,
      *          @OA\Schema(type="integer", format="int64")
-    *     ),
-    *     @OA\RequestBody(
-    *         required=true,
-    *         @OA\JsonContent(ref="#/components/schemas/CategoryInput")
-    *     ),
-    *     @OA\Response(
-    *         response=200,
-    *         description="Successful operation",
-    *         @OA\JsonContent(ref="#/components/schemas/CategoryOutput")
-    *     )
-    * )
+     *     ),
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(ref="#/components/schemas/CategoryInput")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *         @OA\JsonContent(ref="#/components/schemas/CategoryOutput")
+     *     )
+     * )
      */
     public function update(Request $request, string $id)
     {
@@ -180,7 +182,7 @@ class CategoryController extends ErpBaseController
         } 
         catch (ModelNotFoundException $exception) {
             return response()->json(['message' => 'Category not found'], 404);
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             // Log the exception for further investigation
             Log::error($exception);
             // Return a generic error message
@@ -193,7 +195,7 @@ class CategoryController extends ErpBaseController
      * Remove the specified resource from storage.
      *
      * @param  string $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      * @OA\Delete(
      *     path="/api/categories/{id}",
      *     tags={"Categories"},
@@ -234,7 +236,7 @@ class CategoryController extends ErpBaseController
             $category->delete();
 
             return response()->json(['message' => 'Category deleted successfully'], 200);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return response()->json(['message' => 'Failed to delete category'], 500);
         }
     }

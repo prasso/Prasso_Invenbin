@@ -2,6 +2,7 @@
 
 namespace Faxt\Invenbin\Livewire;
 
+use Exception;
 use App\Models\Site;
 use App\Models\SitePages;
 use App\Services\BedrockAIService;
@@ -104,7 +105,7 @@ class Assistant extends Component
             ]);
 
             $this->addMessage('assistant', trim((string) $reply) ?: 'No response.');
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             Log::error('invenbin assistant error: ' . $e->getMessage());
             $this->addMessage('assistant', 'Sorry — something went wrong answering that. Try again in a moment.');
         }

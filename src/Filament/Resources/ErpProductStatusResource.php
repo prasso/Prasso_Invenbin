@@ -2,11 +2,23 @@
 
 namespace Faxt\Invenbin\Filament\Resources;
 
+use Filament\Schemas\Schema;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\TrashedFilter;
+use Filament\Actions\EditAction;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteBulkAction;
+use Filament\Actions\ForceDeleteBulkAction;
+use Filament\Actions\RestoreBulkAction;
+use Faxt\Invenbin\Filament\Resources\ErpProductStatusResource\Pages\ListErpProductStatuses;
+use Faxt\Invenbin\Filament\Resources\ErpProductStatusResource\Pages\CreateErpProductStatus;
+use Faxt\Invenbin\Filament\Resources\ErpProductStatusResource\Pages\EditErpProductStatus;
 use Faxt\Invenbin\Filament\Resources\ErpProductStatusResource\Pages;
 use Faxt\Invenbin\Filament\Resources\ErpProductStatusResource\RelationManagers;
 use Faxt\Invenbin\Models\ErpProductStatus;
 use Filament\Forms;
-use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -17,16 +29,16 @@ class ErpProductStatusResource extends Resource
 {
     protected static ?string $model = ErpProductStatus::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-rectangle-stack';
 
 
-    public static function form(Form $form): Form
+    public static function form(Schema $schema): Schema
     {
-        return $form
-            ->schema([
-                Forms\Components\Select::make('updated_by')
+        return $schema
+            ->components([
+                Select::make('updated_by')
                     ->relationship('updatedBy', 'id'),
-                Forms\Components\TextInput::make('status')
+                TextInput::make('status')
             ]);
     }
 
@@ -34,20 +46,20 @@ class ErpProductStatusResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('user_updated.id'),
-                Tables\Columns\TextColumn::make('status')
+                TextColumn::make('user_updated.id'),
+                TextColumn::make('status')
             ])
             ->filters([
-                Tables\Filters\TrashedFilter::make(),
+                TrashedFilter::make(),
             ])
-            ->actions([
-                Tables\Actions\EditAction::make(),
+            ->recordActions([
+                EditAction::make(),
             ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                    Tables\Actions\ForceDeleteBulkAction::make(),
-                    Tables\Actions\RestoreBulkAction::make(),
+            ->toolbarActions([
+                BulkActionGroup::make([
+                    DeleteBulkAction::make(),
+                    ForceDeleteBulkAction::make(),
+                    RestoreBulkAction::make(),
                 ]),
             ]);
     }
@@ -62,9 +74,9 @@ class ErpProductStatusResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListErpProductStatuses::route('/'),
-            'create' => Pages\CreateErpProductStatus::route('/create'),
-            'edit' => Pages\EditErpProductStatus::route('/{record}/edit'),
+            'index' => ListErpProductStatuses::route('/'),
+            'create' => CreateErpProductStatus::route('/create'),
+            'edit' => EditErpProductStatus::route('/{record}/edit'),
         ];
     }
 
